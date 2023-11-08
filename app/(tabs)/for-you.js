@@ -6,7 +6,7 @@ const ForYou = () => {
     <>
       <Header title={"For You"} />
       <Center flex={1}>
-        <Heading>For You</Heading>
+        <Heading>Uyyy</Heading>
       </Center>
     </>
   );
