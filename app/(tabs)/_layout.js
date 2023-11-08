@@ -23,9 +23,6 @@ const TabsLayout = () => {
             case "video":
               iconName = "medal-sharp";
               break;
-            case "profile":
-              iconName = "person-circle-sharp";
-              break;
           }
           return (
             <Ionicons
@@ -52,7 +49,7 @@ const TabsLayout = () => {
       <Tabs.Screen name="for-you" options={{ title: "", ...noHead }} /> 
       <Tabs.Screen name="rocket" options={{ title: "", ...noHead }} /> 
       <Tabs.Screen name="video" options={{ title: "", ...noHead }} />
-      <Tabs.Screen name="profile" options={{ title: "", ...noHead }} />
+
     </Tabs>
   );
 };
