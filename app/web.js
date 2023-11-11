@@ -9,9 +9,13 @@ const Web = () => {
     <>
       <Header title={"Read"} withBack={true} />
       <WebView
-        source={{ uri: params.link }}
+        source={{ uri: "https://www.youtube.com/embed/7GqE0sBhV7o" }}
         startInLoadingState={true}
         renderLoading={() => <Spinner size={"large"} color={"$black"} />}
+        style={{ alignSelf: 'stretch' }}
+        allowsFullscreenVideo={true}
+        scalesPageToFit={true}
+        
       />
     </>
   );
