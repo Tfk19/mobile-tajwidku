@@ -1,7 +1,7 @@
 import { Center, Heading, Box, ScrollView,Text } from "@gluestack-ui/themed";
 import { View,Image, } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Header from "../components"
+import { Header } from "../components"
 
 const Tajwid = () => {
   const First = () => {
