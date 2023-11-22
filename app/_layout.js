@@ -2,6 +2,7 @@ import { Stack } from "expo-router";
 import { GluestackUIProvider } from "@gluestack-ui/themed";
 import { config } from "@gluestack-ui/config";
 
+
 const noHead = { headerShown: false };
 
 const StackLayout = () => {
@@ -10,12 +11,15 @@ const StackLayout = () => {
       <Stack>
         <Stack.Screen name="(tabs)" options={noHead} />
         <Stack.Screen name="index" options={noHead} />
-        <Stack.Screen name="news-detail" options={noHead} />
-        <Stack.Screen name="web" options={noHead} />
-        <Stack.Screen name="rocket" options={noHead} />
+        <Stack.Screen name="Soal1" options={noHead} />
+        <Stack.Screen name="Soal2" options={noHead} />
+        <Stack.Screen name="Soal3" options={noHead} />
+        <Stack.Screen name="Soal4" options={noHead} />
+        <Stack.Screen name="Soal5" options={noHead} />
+        {/* <Stack.Screen name="news-detail" options={noHead}/> */}
+        {/* <StackNavigation initialRoute={AppNavigator.getRoute('tentang')} /> */}
       </Stack>
     </GluestackUIProvider>
   );
 };
-
 export default StackLayout;
