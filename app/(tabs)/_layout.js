@@ -14,7 +14,7 @@ const TabsLayout = () => {
             case "home":
               iconName = "home-sharp";
               break;
-            case "for-you":
+            case "surah":
               iconName = "book-sharp";
               break;
               case "rocket":
@@ -46,7 +46,7 @@ const TabsLayout = () => {
       })}
     >
       <Tabs.Screen name="home" options={{ title: "", ...noHead }} />
-      <Tabs.Screen name="for-you" options={{ title: "", ...noHead }} /> 
+      <Tabs.Screen name="surah" options={{ title: "", ...noHead }} />
       <Tabs.Screen name="rocket" options={{ title: "", ...noHead }} /> 
       <Tabs.Screen name="video" options={{ title: "", ...noHead }} />
 
