@@ -15,14 +15,14 @@ const deskripsi = () => {
   // console.log(params.id)
 
 
-  const [deskripsi, setDeskripsi] = useState([])
-  const [selectedChapter, setSelectedChapter] = useState([]);
+  const [surat, setSurat] = useState([])
+  const [selectedSurat, setSelectedSurat] = useState({});
 
     const fetchData = () => {
-        fetch("https://api.quran.com/api/v3/chapters")
+        fetch(`https://equran.id/api/v2/surat/${params.id}`)
           .then((response) => response.json())
           .then((data) => {
-            setDeskripsi(data.chapters);
+            setSurat(data.data);
             // ini dengan function setSelectedChapter diisi dengaan filter 
           })
           .catch((err) => console.log(err));
@@ -35,15 +35,15 @@ const deskripsi = () => {
 
   // console.log(deskripsi)
 
-  useEffect(() => {
-    // Filter the chapters based on params.id
-    const chapter = deskripsi.find((item) => item.id === Number(params.id));
-    setSelectedChapter(chapter);
-  }, [params.id, deskripsi]);
+//   useEffect(() => {
+    
+//     const chapter = surat.find((item) => item.nomor === Number(params.id));
+//     setSelectedSurat(chapter);
+//   }, [params.id, surat]);
   
-  console.log(selectedChapter)
+//   console.log(surat)
 
-  if (!selectedChapter) {
+  if (!surat) {
     return (
       <Center>
         <View>
@@ -52,9 +52,9 @@ const deskripsi = () => {
       </Center>
     );
   }
-  const idAyat = {
-    id: params.id
-  }
+
+  
+  console.log(surat.arti)
   const Content = () => {
     return (
       
@@ -73,7 +73,7 @@ const deskripsi = () => {
               }} asChild> */}
                 
               <Box style={styles.centeredText}>
-                <Heading fontWeight="bold" color="black">
+                {/* <Heading fontWeight="bold" color="black">
                   Diturunkan di :
                 </Heading>
                 <Text>{selectedChapter.revelation_place}</Text>
@@ -86,30 +86,19 @@ const deskripsi = () => {
                 </Heading>
                 <Text>{selectedChapter.translated_name && (
                   <Text>{selectedChapter.translated_name.name}</Text>
-                )}</Text>
+                )}</Text> */}
                 <Heading fontWeight="bold" color="black">
-                  Jumlah Ayat :
+                    Ayat Pertama :
                 </Heading>
-                <Text>
-                  {selectedChapter.verses_count}
-                </Text>
+                <Text>{surat.ayat && (
+                  <Text>{surat.ayat.teksArab}</Text>
+                )}</Text>
                 {/* <Text color="white">{item.name_arabic}</Text> */}
                 {/* Add other relevant information here */}
               </Box>
             {/* </Link> */}
           </Box>
 
-          {/* Button to ayat */}
-          <Box bg="$#27847D" p="$5" >
-            <Link href={{
-                  pathname: "/ayat",
-                  params: idAyat
-                }} asChild >
-                <Pressable >
-                  <Text color="white">Read More</Text>
-                </Pressable>
-            </Link>
-          </Box>
           </Center>
       //   }}
       // />
@@ -123,7 +112,7 @@ const deskripsi = () => {
       {/* Headers End */}
       <Center mt={20}>
         <Box bg="$#27847D" paddingHorizontal={100} paddingVertical={20}>
-          <Text color="white">deskripsi</Text>
+          <Text color="white">{surat.namaLatin}</Text>
         </Box>
       </Center>
       {/* Content */}
