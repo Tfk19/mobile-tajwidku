@@ -1,15 +1,15 @@
-import { Center, Heading } from "@gluestack-ui/themed";
-import { Header } from "../../components";
+// import { Center, Heading } from "@gluestack-ui/themed";
+// import { Header } from "../../components";
 
-const ForYou = () => {
-  return (
-    <>
-      <Header title={"For You"} />
-      <Center flex={1}>
-        <Heading>Uyyy</Heading>
-      </Center>
-    </>
-  );
-};
+// const ForYou = () => {
+//   return (
+//     <>
+//       <Header title={"For You"} />
+//       <Center flex={1}>
+//         <Heading>Uyyy</Heading>
+//       </Center>
+//     </>
+//   );
+// };
 
-export default ForYou;
+// export default ForYou;

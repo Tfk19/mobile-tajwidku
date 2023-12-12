@@ -14,7 +14,7 @@ const TabsLayout = () => {
             case "home":
               iconName = "home-sharp";
               break;
-            case "for-you":
+            case "surah":
               iconName = "book-sharp";
               break;
               case "quiz":
