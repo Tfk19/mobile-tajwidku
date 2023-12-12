@@ -10,7 +10,7 @@ const Header = ({ title, withBack = false, withClose = false }) => {
   const navigation = useNavigation();
   return (
     <SafeAreaView>
-      <StatusBar barStyle="light" backgroundColor={teal700} />
+      <StatusBar barStyle="light" backgroundColor={teal700}/>
       <Box bg="$teal700" p="$0r" mt="$0"></Box>
       <Box ml="$4" p="$4">
          <HStack justifyContent="space-between" alignItems="left">
