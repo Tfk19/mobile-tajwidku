@@ -66,7 +66,7 @@ const Home = () => {
             <Box rounded="$xl" alignItems="center" w="$50" mr="10%" ml="10%"  >
             <Link
               href={{
-                pathname: "/quran",
+                pathname: "surah",
               }}>
               <Box position="relative">
                 <Image

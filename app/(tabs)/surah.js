@@ -13,18 +13,15 @@ const noHead = { headerShown: false };
 
 const surah = () => {
 
-    const [datas, setDatas] = useState([])
+  const [datas, setDatas] = useState([])
 
-    const fetchData = () => {
-        fetch("https://api.quran.com/api/v3/chapters")
-          .then((response) => response.json())
-          .then((data) => {
-            setDatas(data.chapters);
-          })
-          .catch((err) => console.log(err));
-    };    
-    
-
+  const fetchData = () => {
+    fetch("https://api.quran.com/api/v3/chapters")
+    .then((response) => response.json())
+    .then((data) => {
+      setDatas(data.chapters);
+    }).catch ((err) => console.log(err));
+  };    
   useEffect(() => {
     fetchData()
   }, [])
@@ -45,7 +42,7 @@ const surah = () => {
                 <Image
                   resizeMode="contain"
                   role="img"
-                  source={require('../../assets/Frame1.png')}
+                  source={require('../../assets/al-qurans.png')}
                 />
                 <Heading
                   position="absolute"
@@ -63,62 +60,86 @@ const surah = () => {
         </View>
       </Box>
     )
-  }
-  const Boxes = () => {
+  };
+  const renderItem = ({ item }) => {
+    const newsItem = {
+      id: item.id,
+    };
+    return(
+      <Box bg="$teal" p="$2" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
+      <Link href={{
+        pathname: "/deskripsi",
+        params: newsItem,
+      }} asChild >
+        <Pressable>
+          <Heading fontWeight="bold" color="white">
+            {item.name_simple}
+          </Heading>
+          <Text color="white">{item.name_complex}</Text>
+          <Text color="white">{item.name_arabic}</Text>
+          {/* Add other relevant information here */}
+        </Pressable>
+      </Link>
+    </Box>
+    );
+    
+  };
+  // const Boxes = () => {
 
-    const noHead = { headerShown: false };
-    return (
-        // <SafeAreaView>
-        //     <ScrollView>
-    <Center p="$5">
-      <FlatList
-        data={datas}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => {
-            // console.log(item.id)
-            const newsItem = {
-                id: item.id,
-              };
-            return (
-          <Box bg="$green" p="$2" paddingHorizontal={10} w={350} mb="$3">
-            <Link href={{
-                pathname: "/deskripsi",
-                params: newsItem,
-              }} asChild>
+  //   const noHead = { headerShown: false };
+  //   return (
+  //       // <SafeAreaView>
+  //       //     <ScrollView>
+  //   <Center p="$5">
+  //     <FlatList
+  //       data={datas}
+  //       keyExtractor={(item) => item.id.toString()}
+  //       renderItem={({ item }) => {
+  //           // console.log(item.id)
+  //           const newsItem = {
+  //               id: item.id,
+  //             };
+  //           return (
+  //         <Box bg="$green" p="$2" paddingHorizontal={10} w={350} mb="$3">
+  //           <Link href={{
+  //               pathname: "/deskripsi",
+  //               params: newsItem,
+  //             }} asChild>
                 
-              <Pressable>
-                <Heading fontWeight="bold" color="white">
-                  {item.name_simple}
-                </Heading>
-                <Text color="white">{item.name_complex}</Text>
-                <Text color="white">{item.name_arabic}</Text>
-                {/* Add other relevant information here */}
-              </Pressable>
-            </Link>
-          </Box>
-            )
-        }}
-      />
-    </Center>
-    //   </ScrollView>
-    //   </SafeAreaView>
-    )
-  }
+  //             <Pressable>
+  //               <Heading fontWeight="bold" color="white">
+  //                 {item.name_simple}
+  //               </Heading>
+  //               <Text color="white">{item.name_complex}</Text>
+  //               <Text color="white">{item.name_arabic}</Text>
+  //               {/* Add other relevant information here */}
+  //             </Pressable>
+  //           </Link>
+  //         </Box>
+  //           )
+  //       }}
+  //     />
+  //   </Center>
+  //   //   </ScrollView>
+  //   //   </SafeAreaView>
+  //   )
+  // }
   return (
-    <SafeAreaView >
+    // <SafeAreaView >
       <ScrollView>
-      <Header title={"Home"}/>
-      <Center>
-        <View>
+        <Header title={"Home"}/>
+        <Center>
           <Headers />
-        </View>
-       
-        <View>
-          <Boxes/>
-        </View> 
-      </Center>
+          <View style={{ height:20 }} />
+          <FlatList
+            data={datas}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id.toString()}
+          />
+          {/* <Boxes/> */}
+        </Center>
       </ScrollView>
-    </SafeAreaView>
+    // </SafeAreaView>
   );
 };
 

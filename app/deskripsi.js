@@ -119,11 +119,11 @@ const deskripsi = () => {
   return (
     <View >
       {/* Headers */}
-      {/* <Header withBack={true} /> */}
+      <Header withBack={true} />
       {/* Headers End */}
       <Center mt={20}>
         <Box bg="$#27847D" paddingHorizontal={100} paddingVertical={20}>
-          <Text color="white">deskripsi</Text>
+          <Text color="white">Deskripsi Surat</Text>
         </Box>
       </Center>
       {/* Content */}

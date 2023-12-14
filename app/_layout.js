@@ -13,10 +13,10 @@ const StackLayout = () => {
         <Stack.Screen name="index" options={noHead} />
         <Stack.Screen name="Soal1" options={noHead} />
         <Stack.Screen name="jadwal" options={noHead} />
-        <Stack.Screen name="quran" options={noHead} />
         <Stack.Screen name="doa" options={noHead} />
         <Stack.Screen name="bacaan" options={noHead} />
         <Stack.Screen name="hadist" options={noHead} />
+        <Stack.Screen name="deskripsi" options={noHead} />
         <Stack.Screen name="Soal2" options={noHead} />
         <Stack.Screen name="Soal3" options={noHead} />
         <Stack.Screen name="Soal4" options={noHead} />
