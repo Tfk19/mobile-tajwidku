@@ -10,7 +10,7 @@ const Home = () => {
       <View w="100%">
         <Link
           href={{
-            pathname: "/tajwid",
+            pathname: "home",
           }}>
           <Box rounded="$xl" alignItems="center" w="$50" bg="green" flex={1}>
             <Box position="relative" alignItems="center">
