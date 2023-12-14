@@ -12,8 +12,8 @@ const Home = () => {
           href={{
             pathname: "/tajwid",
           }}>
-          <Box rounded="$xl" alignItems="center" w="$50" bg="green"  >
-            <Box position="relative">
+          <Box rounded="$xl" alignItems="center" w="$50" bg="green" flex={1}>
+            <Box position="relative" alignItems="center">
               <Image
                 resizeMode="contain"
                 role="img"
@@ -21,12 +21,8 @@ const Home = () => {
               />
               <Heading
                 position="absolute"
-                top="0"
-                left="0"
-                ml="$4"
-                mb="$4"
+                textAlign="center"
                 color="$white"
-
               >
                 IDZHAR
               </Heading>
@@ -41,12 +37,95 @@ const Home = () => {
       <View>
         <HStack space="xl" alignItems="center" py="$5">
           <View w="100%">
-            <Box rounded="$xl" alignItems="center" w="$50" bg="green"  >
+            <Link
+              href={{
+                pathname: "/jadwal",
+              }}>
+              <Box rounded="$xl" alignItems="center" w="$50"   >
+                <Box position="relative">
+                  <Image
+                    resizeMode="contain"
+                    role="img"
+                    source={require('../../assets/jam.png')}
+                  />
+                  <Heading
+                    position="absolute"
+                    top="$100"
+                    left="0"
+                    ml="$4"
+                    mb="$4"
+                    color="$white"
+                    fontWeight="bold"
+                  >
+                  </Heading>
+                </Box>
+              </Box>
+            </Link>
+          </View>
+          <View w="100%">
+            <Box rounded="$xl" alignItems="center" w="$50" mr="10%" ml="10%"  >
+            <Link
+              href={{
+                pathname: "surah",
+              }}>
               <Box position="relative">
                 <Image
                   resizeMode="contain"
                   role="img"
-                  source={require('../../assets/Frame3.png')}
+                  source={require('../../assets/al-quran.png')}
+                />
+                <Heading
+                  position="absolute"
+                  top="$100"
+                  left="0"
+                  ml="$5"
+                  mr="$5"
+                  color="$white"
+                >
+                </Heading>
+              </Box>
+              </Link>
+            </Box>
+          </View>
+          <View w="100%">
+          <Link
+              href={{
+                pathname: "/doa",
+              }}>
+            <Box rounded="$xl" alignItems="center" w="$50"  >
+              <Box position="relative">
+                <Image
+                  resizeMode="contain"
+                  role="img"
+                  source={require('../../assets/doa.png')}
+                />
+                <Heading
+                  position="absolute"
+                  top="$100"
+                  left="0"
+                  ml="$5"
+                  mr="$5"
+                  mb="$4"
+                  color="$white"
+                >
+                </Heading>
+              </Box>
+            </Box>
+            </Link>
+          </View>
+        </HStack>
+        <HStack space="xl" alignItems="center" mt="$10">
+          <View w="100%">
+          <Link
+              href={{
+                pathname: "/bacaan",
+              }}>
+            <Box rounded="$xl" alignItems="center" w="$50"   >
+              <Box position="relative">
+                <Image
+                  resizeMode="contain"
+                  role="img"
+                  source={require('../../assets/bacaan.png')}
                 />
                 <Heading
                   position="absolute"
@@ -57,85 +136,47 @@ const Home = () => {
                   color="$white"
                   fontWeight="bold"
                 >
-                  IDZHAR
                 </Heading>
               </Box>
             </Box>
+            </Link>
           </View>
           <View w="100%">
-            <Box rounded="$xl" alignItems="center" w="$50" bg="green"  >
+            <Box rounded="$xl" alignItems="center" w="$50" mr="10%" ml="10%"  >
+            <Link
+              href={{
+                pathname: "/hadist",
+              }}>
               <Box position="relative">
                 <Image
                   resizeMode="contain"
                   role="img"
-                  source={require('../../assets/Frame3.png')}
+                  source={require('../../assets/hadist.png')}
                 />
                 <Heading
                   position="absolute"
                   top="$100"
                   left="0"
-                  ml="$4"
-                  mb="$4"
+                  ml="$5"
+                  mr="$5"
                   color="$white"
                 >
-                  IKHFAA'
                 </Heading>
               </Box>
+              </Link>
             </Box>
           </View>
-        </HStack>
-        <HStack space="xl" alignItems="center">
           <View w="100%">
-            <Box rounded="$xl" alignItems="center" w="$50" bg="green"  >
+          <Link
+              href={{
+                pathname: "quiz",
+              }}>
+            <Box rounded="$xl" alignItems="center" w="$50"   >
               <Box position="relative">
                 <Image
                   resizeMode="contain"
                   role="img"
-                  source={require('../../assets/Frame3.png')}
-                />
-                <Heading
-                  position="absolute"
-                  top="$100"
-                  left="0"
-                  ml="$4"
-                  mb="$4"
-                  color="$white"
-                >
-                  IDGHAM
-                </Heading>
-              </Box>
-            </Box>
-          </View>
-          <View w="100%">
-            <Box rounded="$xl" alignItems="center" w="$50" bg="green"  >
-              <Box position="relative">
-                <Image
-                  resizeMode="contain"
-                  role="img"
-                  source={require('../../assets/Frame3.png')}
-                />
-                <Heading
-                  position="absolute"
-                  top="$100"
-                  left="0"
-                  ml="$4"
-                  mb="$4"
-                  color="$white"
-                >
-                  IQLAAB
-                </Heading>
-              </Box>
-            </Box>
-          </View>
-        </HStack>
-        <HStack space="xl" alignItems="center" py="$5">
-          <View w="100%">
-            <Box rounded="$xl" alignItems="center" w="$50" bg="green"  >
-              <Box position="relative">
-                <Image
-                  resizeMode="contain"
-                  role="img"
-                  source={require('../../assets/Frame3.png')}
+                  source={require('../../assets/quiz.png')}
                 />
                 <Heading
                   position="absolute"
@@ -146,59 +187,37 @@ const Home = () => {
                   color="$white"
                   fontWeight="bold"
                 >
-                  IDZHAR
                 </Heading>
               </Box>
             </Box>
-          </View>
-          <View w="100%">
-            <Box rounded="$xl" alignItems="center" w="$50" bg="green"  >
-              <Box position="relative">
-                <Image
-                  resizeMode="contain"
-                  role="img"
-                  source={require('../../assets/Frame3.png')}
-                />
-                <Heading
-                  position="absolute"
-                  top="$100"
-                  left="0"
-                  ml="$4"
-                  mb="$4"
-                  color="$white"
-                >
-                  IKHFAA'
-                </Heading>
-              </Box>
-            </Box>
+            </Link>
           </View>
         </HStack>
+
 
       </View>
     )
   }
   return (
-    <SafeAreaView >
-      <ScrollView>
-        <Header top="$0" title={"Home"} />
-        <Center>
-          <View>
-            <Headers />
-          </View>
-          <Heading color="$green800" py="$4" >
-            خيركم من تعلّم القران و علّمه
-          </Heading>
-          <Text color="$green700" bottom="$2" px="$10" textAlign="center" sizes="6xl" >
-            “Sebaik-baiknya diantara kamu adalah
-            orang yang belajar Al-Qur’an dan
-            Mengajarkannya”
-          </Text>
-          <View>
-            <Boxes />
-          </View>
-        </Center>
-      </ScrollView>
-    </SafeAreaView>
+    <ScrollView>
+      <Header top="$0" title={"Home"} />
+      <Center>
+        <View>
+          <Headers />
+        </View>
+        <Heading color="$green800" py="$4" >
+          خيركم من تعلّم القران و علّمه
+        </Heading>
+        <Text color="$green700" bottom="$2" px="$10" textAlign="center" sizes="6xl" >
+          “Sebaik-baiknya diantara kamu adalah
+          orang yang belajar Al-Qur’an dan
+          Mengajarkannya”
+        </Text>
+        <View>
+          <Boxes />
+        </View>
+      </Center>
+    </ScrollView>
   );
 };
 
