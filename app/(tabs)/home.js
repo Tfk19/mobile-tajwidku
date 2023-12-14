@@ -37,28 +37,37 @@ const Home = () => {
       <View>
         <HStack space="xl" alignItems="center" py="$5">
           <View w="100%">
-            <Box rounded="$xl" alignItems="center" w="$50"   >
-              <Box position="relative">
-                <Image
-                  resizeMode="contain"
-                  role="img"
-                  source={require('../../assets/jam.png')}
-                />
-                <Heading
-                  position="absolute"
-                  top="$100"
-                  left="0"
-                  ml="$4"
-                  mb="$4"
-                  color="$white"
-                  fontWeight="bold"
-                >
-                </Heading>
+            <Link
+              href={{
+                pathname: "/jadwal",
+              }}>
+              <Box rounded="$xl" alignItems="center" w="$50"   >
+                <Box position="relative">
+                  <Image
+                    resizeMode="contain"
+                    role="img"
+                    source={require('../../assets/jam.png')}
+                  />
+                  <Heading
+                    position="absolute"
+                    top="$100"
+                    left="0"
+                    ml="$4"
+                    mb="$4"
+                    color="$white"
+                    fontWeight="bold"
+                  >
+                  </Heading>
+                </Box>
               </Box>
-            </Box>
+            </Link>
           </View>
           <View w="100%">
             <Box rounded="$xl" alignItems="center" w="$50" mr="10%" ml="10%"  >
+            <Link
+              href={{
+                pathname: "/quran",
+              }}>
               <Box position="relative">
                 <Image
                   resizeMode="contain"
@@ -75,9 +84,14 @@ const Home = () => {
                 >
                 </Heading>
               </Box>
+              </Link>
             </Box>
           </View>
           <View w="100%">
+          <Link
+              href={{
+                pathname: "/doa",
+              }}>
             <Box rounded="$xl" alignItems="center" w="$50"  >
               <Box position="relative">
                 <Image
@@ -97,10 +111,15 @@ const Home = () => {
                 </Heading>
               </Box>
             </Box>
+            </Link>
           </View>
         </HStack>
         <HStack space="xl" alignItems="center" mt="$10">
-        <View w="100%">
+          <View w="100%">
+          <Link
+              href={{
+                pathname: "/bacaan",
+              }}>
             <Box rounded="$xl" alignItems="center" w="$50"   >
               <Box position="relative">
                 <Image
@@ -120,9 +139,14 @@ const Home = () => {
                 </Heading>
               </Box>
             </Box>
+            </Link>
           </View>
           <View w="100%">
             <Box rounded="$xl" alignItems="center" w="$50" mr="10%" ml="10%"  >
+            <Link
+              href={{
+                pathname: "/hadist",
+              }}>
               <Box position="relative">
                 <Image
                   resizeMode="contain"
@@ -139,10 +163,15 @@ const Home = () => {
                 >
                 </Heading>
               </Box>
+              </Link>
             </Box>
           </View>
           <View w="100%">
-            <Box rounded="$xl" alignItems="center" w="$50"  >
+          <Link
+              href={{
+                pathname: "quiz",
+              }}>
+            <Box rounded="$xl" alignItems="center" w="$50"   >
               <Box position="relative">
                 <Image
                   resizeMode="contain"
@@ -153,17 +182,18 @@ const Home = () => {
                   position="absolute"
                   top="$100"
                   left="0"
-                  ml="$5"
-                  mr="$5"
+                  ml="$4"
                   mb="$4"
                   color="$white"
+                  fontWeight="bold"
                 >
                 </Heading>
               </Box>
             </Box>
+            </Link>
           </View>
         </HStack>
-      
+
 
       </View>
     )

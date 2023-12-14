@@ -57,7 +57,7 @@ const quiz = () => {
             <Image
               w="$50"
               h="$50"
-              source={require('../../assets/Frame1.png')}
+              source={require('../../assets/quizs.png')}
               resizeMode="contain"
               role="img"
               alignSelf="center"
