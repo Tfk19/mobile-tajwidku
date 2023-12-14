@@ -1,49 +1,27 @@
-import { Center, Heading, Box, HStack, ScrollView,Text } from "@gluestack-ui/themed";
-import { Link, Stack } from "expo-router";
-import { GluestackUIProvider } from "@gluestack-ui/themed";
-import { config } from "@gluestack-ui/config";
-import { View,Image, TouchableOpacity, Pressable, FlatList, StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import  Header  from "../components/header";
-import { useRoute, useLocalSearchParams } from 'expo-router';
+import { Center, Heading, Box, Text, ScrollView } from "@gluestack-ui/themed";
+import { View, StyleSheet, Dimensions } from "react-native";
+import { useLocalSearchParams } from 'expo-router';
 import React, { useState, useEffect } from 'react';
+import { Header } from "../components";
 
-
-const deskripsi = () => {
-  // const route = useRoute();
+const Deskripsi = () => {
   const params = useLocalSearchParams();
-  // console.log(params.id)
+  const [surat, setSurat] = useState({});
 
-
-  const [surat, setSurat] = useState([])
-  const [selectedSurat, setSelectedSurat] = useState({});
-
-    const fetchData = () => {
-        fetch(`https://equran.id/api/v2/surat/${params.id}`)
-          .then((response) => response.json())
-          .then((data) => {
-            setSurat(data.data);
-            // ini dengan function setSelectedChapter diisi dengaan filter 
-          })
-          .catch((err) => console.log(err));
-    };    
-    
+  const fetchData = () => {
+    fetch(`https://equran.id/api/v2/surat/${params.id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setSurat(data.data);
+      })
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
     fetchData()
-  }, [params.id])
+  }, [params.id]);
 
-  // console.log(deskripsi)
-
-//   useEffect(() => {
-    
-//     const chapter = surat.find((item) => item.nomor === Number(params.id));
-//     setSelectedSurat(chapter);
-//   }, [params.id, surat]);
-  
-//   console.log(surat)
-
-  if (!surat) {
+  if (!surat || !surat.ayat) {
     return (
       <Center>
         <View>
@@ -53,85 +31,44 @@ const deskripsi = () => {
     );
   }
 
-  
-  console.log(surat.arti)
   const Content = () => {
     return (
-      
-      // <FlatList
-      //   data={selectedChapter}
-      //   keyExtractor={(item) => item.id.toString()}
-      //   renderItem={({ item }) => {
-      //       console.log(`Ini adalah item visual ${item}`)
-            
-      //       return (
+      <ScrollView>
+        <Header withBack={true} top="$0" title={"Home"} />
         <Center>
-          <Box bg="" p="$2" paddingHorizontal={10} w={350} mb="$3">
-            {/* <Link href={{
-                pathname: "/deskripsi",
-                params: newsItem,
-              }} asChild> */}
-                
-              <Box style={styles.centeredText}>
-                {/* <Heading fontWeight="bold" color="black">
-                  Diturunkan di :
-                </Heading>
-                <Text>{selectedChapter.revelation_place}</Text>
-                <Heading fontWeight="bold" color="black">
-                  Nama dalam Bahasa Arab :
-                </Heading>
-                <Text>{selectedChapter.name_arabic}</Text>
-                <Heading fontWeight="bold" color="black">
-                  Nama dalam Bahasa Inggris :
-                </Heading>
-                <Text>{selectedChapter.translated_name && (
-                  <Text>{selectedChapter.translated_name.name}</Text>
-                )}</Text> */}
-                <Heading fontWeight="bold" color="black">
-                    Ayat Pertama :
-                </Heading>
-                <Text>{surat.ayat && (
-                  <Text>{surat.ayat.teksArab}</Text>
-                )}</Text>
-                {/* <Text color="white">{item.name_arabic}</Text> */}
-                {/* Add other relevant information here */}
-              </Box>
-            {/* </Link> */}
+          <Box bg="$#27847D" p="$2" mb="$3">
+            <Text color="white">{surat.namaLatin}</Text>
           </Box>
-
-          </Center>
-      //   }}
-      // />
-    )
-  }
+          <Box bg="" p="$2" paddingHorizontal={10} w={350} mb="$3">
+            {surat.ayat.map((verse) => (
+              <Box key={verse.nomorAyat} mb="$1">
+                 <Box bg="$teal" p="$2" paddingHorizontal={10} w={350} rounded={"$md"} >
+                <Text fontSize={20} color="white"> Ayat ke- {(verse.nomorAyat)}</Text>
+                </Box>
+                <Text marginTop={10} bold fontSize={20}>{verse.teksArab}</Text>
+                <Text>"{verse.teksIndonesia}"</Text>
+              </Box>
+            ))}
+          </Box>
+        </Center>
+      </ScrollView>
+    );
+  };
 
   return (
-    <View >
-      {/* Headers */}
-      {/* <Header withBack={true} /> */}
-      {/* Headers End */}
+    <View>
       <Center mt={20}>
-        <Box bg="$#27847D" paddingHorizontal={100} paddingVertical={20}>
-          <Text color="white">{surat.namaLatin}</Text>
-        </Box>
-      </Center>
-      {/* Content */}
         <Content style={styles.centeredText} />
-      {/* Content End */}
+      </Center>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   centeredText: {
-    textAlign: 'center', // Horizontal centering
-    textAlignVertical: 'center', // Vertical centering
+    textAlign: 'center',
+    textAlignVertical: 'center',
   },
 });
 
-export default deskripsi
+export default Deskripsi;
