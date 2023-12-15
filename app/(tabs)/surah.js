@@ -5,7 +5,6 @@ import { config } from "@gluestack-ui/config";
 import { View,Image, TouchableOpacity, Pressable, FlatList } from "react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
-// import { ScrollView } from 'react-native-gesture-handler';
 import { Header } from "../../components";
 import React, { useState, useEffect } from 'react';
 
@@ -34,7 +33,7 @@ const surah = () => {
         <View w="100%">
           <Link
             href={{
-              pathname: "/tajwid",
+              pathname: "surah",
             }}
           >
             <Box rounded="$xl" alignItems="center" w="$50" bg="">
@@ -52,7 +51,6 @@ const surah = () => {
                   mb="$4"
                   color="$white"
                 >
-                  Qur’an
                 </Heading>
               </Box>
             </Box>
@@ -84,48 +82,8 @@ const surah = () => {
     );
     
   };
-  // const Boxes = () => {
-
-  //   const noHead = { headerShown: false };
-  //   return (
-  //       // <SafeAreaView>
-  //       //     <ScrollView>
-  //   <Center p="$5">
-  //     <FlatList
-  //       data={datas}
-  //       keyExtractor={(item) => item.id.toString()}
-  //       renderItem={({ item }) => {
-  //           // console.log(item.id)
-  //           const newsItem = {
-  //               id: item.id,
-  //             };
-  //           return (
-  //         <Box bg="$green" p="$2" paddingHorizontal={10} w={350} mb="$3">
-  //           <Link href={{
-  //               pathname: "/deskripsi",
-  //               params: newsItem,
-  //             }} asChild>
-                
-  //             <Pressable>
-  //               <Heading fontWeight="bold" color="white">
-  //                 {item.name_simple}
-  //               </Heading>
-  //               <Text color="white">{item.name_complex}</Text>
-  //               <Text color="white">{item.name_arabic}</Text>
-  //               {/* Add other relevant information here */}
-  //             </Pressable>
-  //           </Link>
-  //         </Box>
-  //           )
-  //       }}
-  //     />
-  //   </Center>
-  //   //   </ScrollView>
-  //   //   </SafeAreaView>
-  //   )
-  // }
   return (
-    // <SafeAreaView >
+
       <ScrollView>
         <Header title={"Home"}/>
         <Center>
@@ -139,7 +97,7 @@ const surah = () => {
           {/* <Boxes/> */}
         </Center>
       </ScrollView>
-    // </SafeAreaView>
+
   );
 };
 

@@ -17,6 +17,7 @@ const StackLayout = () => {
         <Stack.Screen name="bacaan" options={noHead} />
         <Stack.Screen name="hadist" options={noHead} />
         <Stack.Screen name="deskripsi" options={noHead} />
+        <Stack.Screen name="deskripsi_hadist" options={noHead} />
         <Stack.Screen name="ayat" options={noHead} />
         <Stack.Screen name="Soal2" options={noHead} />
         <Stack.Screen name="Soal3" options={noHead} />

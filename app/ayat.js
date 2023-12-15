@@ -4,7 +4,7 @@ import { useLocalSearchParams } from 'expo-router';
 import React, { useState, useEffect } from 'react';
 import { Header } from "../components";
 
-const Deskripsi = () => {
+const Ayat = () => {
   const params = useLocalSearchParams();
   const [surat, setSurat] = useState({});
 
@@ -71,4 +71,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Deskripsi;
+export default Ayat;
