@@ -1,58 +1,103 @@
 import { Center, Heading, Box, HStack, ScrollView, Text } from "@gluestack-ui/themed";
-import { Link } from "expo-router";
-import { View, Image, TouchableOpacity } from "react-native";
+import { Link, Stack } from "expo-router";
+import { GluestackUIProvider } from "@gluestack-ui/themed";
+import { config } from "@gluestack-ui/config";
+import { View,Image, TouchableOpacity, Pressable, FlatList } from "react-native";
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "../components";
+import React, { useState, useEffect } from 'react';
 
-const Hadist = () => {
+const noHead = { headerShown: false };
+
+const Doa = () => {
+
+  const [datas, setDatas] = useState([])
+
+  const fetchData = () => {
+    fetch("https://api.hadith.gading.dev/books/")
+    .then((response) => response.json())
+    .then((data) => {
+      setDatas(data.data);
+    }).catch ((err) => console.log(err));
+  };    
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+//   console.log(users)
+
   const Headers = () => {
     return (
-      <View w="100%">
-        <Link
-          href={{
-            pathname: "/doa",
-          }}>
-          <Box rounded="$xl" alignItems="center" w="$50" bg="green" flex={1}>
-            <Box position="relative" alignItems="center">
-              <Image
-                resizeMode="contain"
-                role="img"
-                source={require('../assets/Hadists.png')}
-              />
-              <Heading
-                position="absolute"
-                textAlign="center"
-                color="$white"
-              >
-              </Heading>
+      <Box position="relative">
+        <View w="100%">
+          <Link
+            href={{
+              pathname: "surah",
+            }}
+          >
+            <Box rounded="$xl" alignItems="center" w="$50" bg="">
+              <Box position="relative">
+                <Image
+                  resizeMode="contain"
+                  role="img"
+                  source={require('../assets/Hadists.png')}
+                />
+                <Heading
+                  position="absolute"
+                  top="$100"
+                  left="0"
+                  ml="$4"
+                  mb="$4"
+                  color="$white"
+                >
+                </Heading>
+              </Box>
             </Box>
-          </Box>
           </Link>
-      </View>
+        </View>
+      </Box>
     )
-  }
-
+  };
+  const renderItem = ({ item }) => {
+    const newsItem = {
+      id: item.id,
+    };
+    return(
+      <Box bg="teal" p="$2" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
+      <Link href={{
+        pathname: "/deskripsi_hadist",
+        params: newsItem,
+      }} asChild >
+        <Pressable>
+          <Heading fontWeight="bold" color="white">
+            {item.name}
+          </Heading>
+          <Text color="white" marginTop={5} fontSize={20}>Hadist yang diriwayatkan : {item.available}</Text>
+          {/* Add other relevant information here */}
+        </Pressable>
+      </Link>
+    </Box>
+    );
+    
+  };
   return (
-    <ScrollView>
-      <Header withBack={true} top="$0" title={"Home"} />
-      <Center>
-        <View>
+    // <SafeAreaView >
+      <ScrollView>
+        <Header withBack={true} title={"Home"}/>
+        <Center>
           <Headers />
-        </View>
-        <Heading color="$green800" py="$4" >
-          خيركم من تعلّم القران و علّمه
-        </Heading>
-        <Text color="$green700" bottom="$2" px="$10" textAlign="center" sizes="6xl" >
-          “Sebaik-baiknya diantara kamu adalah
-          orang yang belajar Al-Qur’an dan
-          Mengajarkannya”
-        </Text>
-        <View>
-
-        </View>
-      </Center>
-    </ScrollView>
+          <View style={{ height:20 }} />
+          <FlatList
+            data={datas}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id.toString()}
+          />
+          {/* <Boxes/> */}
+        </Center>
+      </ScrollView>
+    // </SafeAreaView>
   );
 };
 
-export default Hadist;
+export default Doa;
