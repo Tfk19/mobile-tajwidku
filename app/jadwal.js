@@ -1,55 +1,92 @@
-import { Center, Heading, Box, HStack, ScrollView, Text } from "@gluestack-ui/themed";
-import { Link } from "expo-router";
-import { View, Image, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from 'react';
+import { Center, Heading, Box, ScrollView, Text } from "@gluestack-ui/themed";
+import { Link, Stack } from "expo-router";
+import { View, Image, Pressable, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "../components";
 
 const Jadwal = () => {
+  const [datas, setDatas] = useState([]);
+
+  const fetchData = () => {
+    fetch("https://raw.githubusercontent.com/lakuapik/jadwalsholatorg/master/adzan/surabaya/2023/12.json")
+      .then((response) => response.json())
+      .then((data) => {
+        setDatas(data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const Headers = () => {
     return (
-      <View w="100%">
+      <Box position="relative">
+        <View w="100%">
+          <Link
+            href={{
+              pathname: "surah",
+            }}
+          >
+            <Box rounded="$xl" alignItems="center" w="$50" bg="">
+              <Box position="relative">
+                <Image
+                  resizeMode="contain"
+                  role="img"
+                  source={require('../assets/jadwals.png')}
+                />
+                <Heading
+                  position="absolute"
+                  top="$100"
+                  left="0"
+                  ml="$4"
+                  mb="$4"
+                  color="$white"
+                >
+                </Heading>
+              </Box>
+            </Box>
+          </Link>
+        </View>
+      </Box>
+    );
+  };
+
+  const renderItem = ({ item }) => {
+    const newsItem = {
+      id: item.id,
+    };
+
+    return (
+      <Box p="$2" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
         <Link
           href={{
-            pathname: "/jadwal",
-          }}>
-          <Box rounded="$xl" alignItems="center" w="$50" bg="green" flex={1}>
-            <Box position="relative" alignItems="center">
-              <Image
-                resizeMode="contain"
-                role="img"
-                source={require('../assets/jadwals.png')}
-              />
-              <Heading
-                position="absolute"
-                textAlign="center"
-                color="$white"
-              >
-              </Heading>
-            </Box>
-          </Box>
+            pathname: "/deskripsi",
+            params: newsItem,
+          }}
+          asChild
+        >
+          <Pressable>
+            <Text>{`Imsyak: ${item.imsyak ? item.imsyak : "N/A"}`}</Text>
+            <Text>{`Shubuh: ${item.shubuh ? item.shubuh : "N/A"}`}</Text>
+          </Pressable>
         </Link>
-      </View>
-    )
-  }
+      </Box>
+    );
+  };
 
   return (
     <ScrollView>
-      <Header withBack={true} top="$0" title={"Home"} />
+      <Header withBack={true} title={"Home"} />
       <Center>
-        <View>
-          <Headers />
-        </View>
-        <Heading color="$green800" py="$4" >
-          خيركم من تعلّم القران و علّمه
-        </Heading>
-        <Text color="$green700" bottom="$2" px="$10" textAlign="center" sizes="6xl" >
-          “Sebaik-baiknya diantara kamu adalah
-          orang yang belajar Al-Qur’an dan
-          Mengajarkannya”
-        </Text>
-        <View>
-
-        </View>
+        <Headers />
+        <View style={{ height: 20 }} />
+        <FlatList
+          data={datas}
+          renderItem={renderItem}
+        />
       </Center>
     </ScrollView>
   );
