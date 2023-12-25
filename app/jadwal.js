@@ -61,18 +61,38 @@ const Jadwal = () => {
 
     return (
       <Box p="$2" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
-        <Link
-          href={{
-            pathname: "/deskripsi",
-            params: newsItem,
-          }}
-          asChild
-        >
-          <Pressable>
-            <Text>{`Imsyak: ${item.imsyak ? item.imsyak : "N/A"}`}</Text>
-            <Text>{`Shubuh: ${item.shubuh ? item.shubuh : "N/A"}`}</Text>
-          </Pressable>
-        </Link>
+        {/* <Text>{item.tanggal}</Text> */}
+        <Pressable>
+          <Box bg="$teal" p="$5" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
+            <Text color='white'>{`Imsyak: ${item.imsyak ? item.imsyak : "N/A"}`}</Text>
+          </Box>
+          <Box bg="$teal" p="$5" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
+            <Text color='white'>{`Shubuh: ${item.shubuh ? item.shubuh : "N/A"}`}</Text>
+          </Box>
+          <Box bg="$teal" p="$5" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
+            <Text color='white'>{`dhuha: ${item.dhuha ? item.dhuha : "N/A"}`}</Text>
+          </Box>
+          <Box bg="$teal" p="$5" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
+            <Text color='white'>{`dzuhur: ${item.dzuhur ? item.dzuhur : "N/A"}`}</Text>
+          </Box>
+          <Box bg="$teal" p="$5" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
+            <Text color='white'>{`ashr: ${item.ashr ? item.ashr : "N/A"}`}</Text>
+          </Box>
+          <Box bg="$teal" p="$5" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
+            <Text color='white'>{`magrib: ${item.magrib ? item.magrib : "N/A"}`}</Text>
+          </Box>
+          <Box bg="$teal" p="$5" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
+            <Text color='white'>{`isya: ${item.isya ? item.isya : "N/A"}`}</Text>
+          </Box>
+        </Pressable>
+        {/* <Box bg="$teal" p="$2" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
+            <Pressable >
+              <Heading fontWeight="bold" color="white">
+                {item.ashr}
+              </Heading>
+              <Text color="white">{item.isya}</Text>
+            </Pressable>
+        </Box> */}
       </Box>
     );
   };
@@ -80,11 +100,20 @@ const Jadwal = () => {
   return (
     <ScrollView>
       <Header withBack={true} title={"Home"} />
+
       <Center>
         <Headers />
         <View style={{ height: 20 }} />
+        <Heading color="$green800" py="$4" >
+          KOTA SURABAYA
+        </Heading>
+        <Text color="$green700" bottom="$2" px="$10" textAlign="center" sizes="6xl" >
+          “Sebaik-baiknya diantara kamu adalah
+          orang yang belajar Al-Qur’an dan
+          Mengajarkannya”
+        </Text>
         <FlatList
-          data={datas}
+          data={datas.length > 0 ? [datas[0]] : []}
           renderItem={renderItem}
         />
       </Center>
