@@ -100,7 +100,7 @@ const Jadwal = () => {
   return (
     <ScrollView>
       <Header withBack={true} title={"Home"} />
-      
+
       <Center>
         <Headers />
         <View style={{ height: 20 }} />
