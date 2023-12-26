@@ -1,0 +1,28 @@
+{
+  "1": {
+    "question": "Apa yang dimaksud dengan Iqlab?",
+    "options": {
+      "1": "Nun sukun atau tanwin bertemu salah satu huruf ل, ر",
+      "2": "Nun sukun atau tanwin bertemu salah satu huruf ا, ح, خ, ع, غ, ه",
+      "3": "Nun sukun atau tanwin bertemu salah satu huruf ي,ن,م,و",
+      "4": "Nun sukun atau tanwin bertemu salah satu huruf ب"
+    },
+    "jawabanBenar": "4"
+  },
+  "2": {
+    "question": "Apakah kata 'لَنْ تَنَاوُل' termasuk Iqlab? ",
+    "options": {
+      "1": "Benar",
+      "2": "Salah"
+    },
+    "jawabanBenar": "2"
+  },
+  "3": {
+    "question":"Apakah kata 'مِنْ بَعْدِ' termasuk Iqlab? ",
+    "options": {
+      "1": "Benar",
+      "2": "Salah"
+    },
+    "jawabanBenar": "1"
+  }
+}

@@ -1,55 +1,52 @@
-import { Text, HStack, IconButton, Icon, Box, Checkbox, Pressable } from "@gluestack-ui/themed";
-import { FontAwesome5 } from "@expo/vector-icons";
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const TaskList = (props) => {
-  const { data, onChecked, onDeleted, deletedIcon, onItemPress } = props;
+const Task = (props) => {
 
   return (
-    <Pressable onPress={onItemPress}>
-      <Box
-        px={3}
-        py={4}
-        bg={data.isCompleted ? "primary.500" : "#fff"}
-        my="7.5px"
-        borderRadius={5}
-      >
-        <HStack w="100%" justifyContent="space-between" alignItems="center">
-          <Checkbox
-            isChecked={data.isCompleted}
-            onChange={onChecked}
-            accessibilityLabel="This is a dummy checkbox"
-            value={data.title}
-            aria-label="This is a dummy checkbox"
-          />
-          <Text
-            width="100%"
-            fontSize={16}
-            flexShrink={1}
-            textAlign="left"
-            mx="10px"
-            strikeThrough={data.isCompleted}
-          >
-            {data.title}
-          </Text>
-          {deletedIcon && (
-            <IconButton
-              size="sm"
-              colorScheme="trueGray"
-              icon={
-                <Icon
-                  as={FontAwesome5}
-                  name="trash"
-                  size="sm"
-                  color={data.isCompleted ? "#fff" : "red.700"}
-                />
-              }
-              onPress={onDeleted}
-            />
-          )}
-        </HStack>
-      </Box>
-    </Pressable>
-  );
-};
+    <View style={styles.item}>
+      <View style={styles.itemLeft}>
+        <View style={styles.square}></View>
+        <Text style={styles.itemText}>{props.text}</Text>
+      </View>
+      <View style={styles.circular}></View>
+    </View>
+  )
+}
 
-export default TaskList;
+const styles = StyleSheet.create({
+  item: {
+    backgroundColor: '#FFF',
+    padding: 15,
+    borderRadius: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  itemLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap'
+  },
+  square: {
+    width: 24,
+    height: 24,
+    backgroundColor: '#55BCF6',
+    opacity: 0.4,
+    borderRadius: 5,
+    marginRight: 15,
+  },
+  itemText: {
+    maxWidth: '80%',
+  },
+  circular: {
+    width: 12,
+    height: 12,
+    borderColor: '#55BCF6',
+    borderWidth: 2,
+    borderRadius: 5,
+  },
+});
+
+export default Task;
