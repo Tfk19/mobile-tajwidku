@@ -1,25 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { Center, Heading, Box, HStack, ScrollView, Text, Input, Icon, IconButton, Toast, Spinner } from "@gluestack-ui/themed";
+import React, {useState} from 'react';
+import { Text, View, TouchableOpacity, Keyboard, Image } from 'react-native';
+import { Center, Heading, Box, ScrollView, Input, KeyboardAvoidingView, InputField, } from "@gluestack-ui/themed";
 import { Link } from "expo-router";
-import { View, Image} from "react-native";
 import { Header } from "../components";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { TaskList } from "../components";
-import { Feather } from "@expo/vector-icons";
+import Task from '../components/task';
 
-const Bacaan = () => {
-  const [list, setList] = useState([]);
-  const [inputValue, setInputValue] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-
-  const toastID = "toast-add-task";
+export default function App() {
+  const [task, setTask] = useState();
+  const [taskItems, setTaskItems] = useState([]);
 
   const Headers = () => {
     return (
       <View w="100%">
         <Link
           href={{
-            pathname: "/doa",
+            pathname: "",
           }}>
           <Box rounded="$xl" alignItems="center" w="$50" bg="green" flex={1}>
             <Box position="relative" alignItems="center">
@@ -41,78 +36,17 @@ const Bacaan = () => {
     )
   }
 
-  const handleAddTask = (data) => {
-    if (data === "") {
-      if (!Toast.isActive(toastID)) {
-        Toast.show({
-          id: toastID,
-          title: "Masukan nama task",
-        });
-      }
-      return;
-    }
+  const handleAddTask = () => {
+    Keyboard.dismiss();
+    setTaskItems([...taskItems, task])
+    setTask(null);
+  }
 
-    setList((prevList) => [...prevList, { title: data, isCompleted: false }]);
-    setInputValue("");
-
-    try {
-      AsyncStorage.setItem(
-        "@task-list",
-        JSON.stringify([...list, { title: data, isCompleted: false }])
-      );
-    } catch (e) {
-      console.log("Error add task: in task-all.js");
-      console.error(e.message);
-    }
-  };
-
-  const handleDeleteTask = (index) => {
-    const deletedList = list.filter((_, listIndex) => listIndex !== index);
-    setList(deletedList);
-
-    try {
-      AsyncStorage.setItem("@task-list", JSON.stringify(deletedList));
-    } catch (e) {
-      console.log("Error delete task: in task-all.js");
-      console.error(e.message);
-    }
-  };
-
-  const handleStatusChange = (index) => {
-    setList((prevList) => {
-      const newList = [...prevList];
-      newList[index].isCompleted = !newList[index].isCompleted;
-      return newList;
-    });
-
-    try {
-      AsyncStorage.setItem("@task-list", JSON.stringify(list));
-    } catch (e) {
-      console.log("Error update status task: in task-all.js");
-      console.error(e.message);
-    }
-  };
-
-  const getTaskList = async () => {
-    try {
-      const value = await AsyncStorage.getItem("@task-list");
-      if (value !== null) {
-        console.log(value);
-        setList(JSON.parse(value));
-      } else {
-        console.log("No Tasks");
-      }
-    } catch (e) {
-      console.log("Error get task: in task-all.js");
-      console.error(e);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getTaskList();
-  }, []);
+  const completeTask = (index) => {
+    let itemsCopy = [...taskItems];
+    itemsCopy.splice(index, 1);
+    setTaskItems(itemsCopy)
+  }
 
   return (
     <ScrollView>
@@ -129,57 +63,51 @@ const Bacaan = () => {
           orang yang belajar Al-Qur’an dan
           Mengajarkannya”
         </Text>
-        <Box flex={1}>
-      <Box mt="15px" mx="15px" mb="7.5px">
-        <HStack space="15px">
-          <Input
-            size="lg"
-            flex={6}
-            onChangeText={(char) => setInputValue(char)}
-            value={inputValue}
-            borderWidth={1}
-            borderColor="primary.600"
-            placeholder="Add Task"
-          />
-          <IconButton
-            flex={1}
-            borderRadius="sm"
-            variant="solid"
-            icon={
-              <Icon as={Feather} name="plus" size="lg" color="warmGray.50" />
-            }
-            onPress={() => {
-              handleAddTask(inputValue);
-            }}
-          />
-        </HStack>
-      </Box>
-      {isLoading ? (
-        <Center flex={1}>
-          <Spinner size="lg" />
-        </Center>
-      ) : (
-        <ScrollView>
-          <Box mb="15px" mx="15px">
-            {list.map((item, index) => (
-              <Box key={item.title + index.toString()}>
-                <TaskList
-                  data={item}
-                  index={index}
-                  deletedIcon={true}
-                  onItemPress={() => handleStatusChange(index)}
-                  onChecked={() => handleStatusChange(index)}
-                  onDeleted={() => handleDeleteTask(index)}
-                />
-              </Box>
-            ))}
+    <View style= {{flex:1}}>
+      {/* Added this scroll view to enable scrolling when list gets longer than the page */}
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1
+        }}
+        keyboardShouldPersistTaps='handled'
+      >
+
+      {/* Today's Tasks */}
+      <View style={{paddingHorizontal:20}}>
+        <View style={{marginTop:10}}>
+          {/* This is where the tasks will go! */}
+          {
+            taskItems.map((item, index) => {
+              return (
+                <TouchableOpacity key={index}  onPress={() => completeTask(index)}>
+                  <Task text={item} /> 
+                </TouchableOpacity>
+              )
+            })
+          }
+        </View>
+      </View>
+        
+      </ScrollView>
+
+      {/* Write a task */}
+      {/* Uses a keyboard avoiding view which ensures the keyboard does not cover the items on screen */}
+      <KeyboardAvoidingView 
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1, zIndex: 999, alignItems: "center", justifyContent: 'space-around', flexDirection: 'row',width:"100%", marginBottom: "10" }}
+      >
+        <Input paddingHorizontal={15} paddingVertical={15} bg='#fff' borderRadius={60} borderColor='#C0C0C0' borderWidth={1} width={250} h={60} size='' variant='rounded'>
+          <InputField placeholder='write a task' value={task} onChangeText={text => setTask(text)}></InputField>
+        </Input>
+        <TouchableOpacity onPress={() => handleAddTask()}>
+          <Box width="60px" height="60px" bg="#fff" rounded="$full" py="$5" px="$6" borderWidth={1} borderColor='#C0C0C0'>
+            <Text>+</Text>
           </Box>
-        </ScrollView>
-      )}
-    </Box>
-      </Center>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
+      
+    </View>
+    </Center>
     </ScrollView>
   );
-};
-
-export default Bacaan;
+}
