@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView, Image } from 'react-native';
-import { Center, Heading, Box, HStack, Input, Icon, IconButton, Toast, Spinner } from "@gluestack-ui/themed";
+import { Text, View, TouchableOpacity, Keyboard, Image } from 'react-native';
+import { Center, Heading, Box, ScrollView, Input, KeyboardAvoidingView, InputField, } from "@gluestack-ui/themed";
 import { Link } from "expo-router";
 import { Header } from "../components";
 import Task from '../components/task';
@@ -63,7 +63,7 @@ export default function App() {
           orang yang belajar Al-Qur’an dan
           Mengajarkannya”
         </Text>
-    <View style={styles.container}>
+    <View style= {{flex:1}}>
       {/* Added this scroll view to enable scrolling when list gets longer than the page */}
       <ScrollView
         contentContainerStyle={{
@@ -73,8 +73,8 @@ export default function App() {
       >
 
       {/* Today's Tasks */}
-      <View style={styles.tasksWrapper}>
-        <View style={styles.items}>
+      <View style={{paddingHorizontal:20}}>
+        <View style={{marginTop:10}}>
           {/* This is where the tasks will go! */}
           {
             taskItems.map((item, index) => {
@@ -94,13 +94,15 @@ export default function App() {
       {/* Uses a keyboard avoiding view which ensures the keyboard does not cover the items on screen */}
       <KeyboardAvoidingView 
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.writeTaskWrapper}
+        style={{ flex: 1, zIndex: 999, alignItems: "center", justifyContent: 'space-around', flexDirection: 'row',width:"100%", marginBottom: "10" }}
       >
-        <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
+        <Input paddingHorizontal={15} paddingVertical={15} bg='#fff' borderRadius={60} borderColor='#C0C0C0' borderWidth={1} width={250} h={60} size='' variant='rounded'>
+          <InputField placeholder='write a task' value={task} onChangeText={text => setTask(text)}></InputField>
+        </Input>
         <TouchableOpacity onPress={() => handleAddTask()}>
-          <View style={styles.addWrapper}>
-            <Text style={styles.addText}>+</Text>
-          </View>
+          <Box width="60px" height="60px" bg="#fff" rounded="$full" py="$5" px="$6" borderWidth={1} borderColor='#C0C0C0'>
+            <Text>+</Text>
+          </Box>
         </TouchableOpacity>
       </KeyboardAvoidingView>
       
@@ -109,34 +111,6 @@ export default function App() {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#E8EAED',
-  },
-  tasksWrapper: {
-    paddingHorizontal: 20,
-  },
-  items: {
-    marginTop: 30,
-  },
-  writeTaskWrapper: {
-    position: 'flex',
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center'
-  },
-  input: {
-    paddingVertical: 15,
-    paddingHorizontal: 15,
-    backgroundColor: '#FFF',
-    borderRadius: 60,
-    borderColor: '#C0C0C0',
-    borderWidth: 1,
-    width: 250,
-  },
   addWrapper: {
     width: 60,
     height: 60,
@@ -149,3 +123,4 @@ const styles = StyleSheet.create({
   },
   addText: {},
 });
+
