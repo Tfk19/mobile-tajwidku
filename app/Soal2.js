@@ -6,6 +6,7 @@ import { Audio } from 'expo-av';
 import { database } from '../src/config/FIREBASE';
 import audio from '../assets/music1.mp3';
 import React, { useState, useEffect, useCallback } from 'react';
+import { getData } from '../src/utils';
 
 const Soal2 = () => {
   const navigation = useNavigation();
@@ -15,6 +16,7 @@ const Soal2 = () => {
   const [sound, setSound] = useState();
   const [questions, setQuestions] = useState({});
   const [userAnswer, setUserAnswer] = useState(null);
+  const [profile, setProfile] = useState(null);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -36,6 +38,21 @@ const Soal2 = () => {
 
     fetchQuestions();
   }, []);
+
+  const getUserData = () => {
+    getData("user").then((res) => {
+      const data = res;
+      if (data) {
+        console.log("isi data", data);
+        setProfile(data);
+      } else {
+        // navigation.replace('Login');
+      }
+    });
+  };
+  useEffect(() => {
+    getUserData();
+  }, [])
 
   useEffect(() => {
     const musik = async () => {
@@ -77,6 +94,16 @@ const Soal2 = () => {
       pertanyaans(pertanyaan + 1);
     } else {
       hasils(true);
+
+      const user = profile?.nama;
+      const scoreData = {
+        score: skor,
+        soal: 'Idgham Bi Ghunnah',
+        users: user,
+      };
+
+      // Gunakan push() untuk menambahkan skor ke dalam tabel skor
+      database.ref('score').push(scoreData);
     }
   };
 

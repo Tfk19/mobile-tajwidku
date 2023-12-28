@@ -13,6 +13,7 @@ const StackLayout = () => {
       <Stack>
         <Stack.Screen name="(tabs)" options={noHead} />
         <Stack.Screen name="index" options={noHead} />
+        {/* <Stack.Screen name="login" options={noHead} /> */}
         <Stack.Screen name="Soal1" options={noHead} />
         <Stack.Screen name="jadwal" options={noHead} />
         <Stack.Screen name="doa" options={noHead} />
