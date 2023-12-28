@@ -218,6 +218,33 @@ const Home = () => {
             </Link>
             <Text textAlign="center">Quiz</Text>
           </View>
+          <View w="100%">
+            <Link
+              href={{
+                pathname: "login",
+              }}>
+              <Box rounded="$xl" alignItems="center" w="$50"   >
+                <Box position="relative">
+                  <Image
+                    resizeMode="contain"
+                    role="img"
+                    source={require('../../assets/quiz.png')}
+                  />
+                  <Heading
+                    position="absolute"
+                    top="$100"
+                    left="0"
+                    ml="$4"
+                    mb="$4"
+                    color="$white"
+                    fontWeight="bold"
+                  >
+                  </Heading>
+                </Box>
+              </Box>
+            </Link>
+            <Text textAlign="center">Login</Text>
+          </View>
         </HStack>
 
 
