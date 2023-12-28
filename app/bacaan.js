@@ -111,16 +111,4 @@ export default function App() {
     </ScrollView>
   );
 }
-  addWrapper: {
-    width: 60,
-    height: 60,
-    backgroundColor: '#FFF',
-    borderRadius: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: '#C0C0C0',
-    borderWidth: 1,
-  },
-  addText: {},
-});
 
