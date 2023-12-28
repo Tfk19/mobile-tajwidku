@@ -1,16 +1,20 @@
-import { Center, Heading, Box, HStack, ScrollView, Text } from "@gluestack-ui/themed";
+import React, {useState} from 'react';
+import { Text, View, TouchableOpacity, Keyboard, Image } from 'react-native';
+import { Center, Heading, Box, ScrollView, Input, KeyboardAvoidingView, InputField, } from "@gluestack-ui/themed";
 import { Link } from "expo-router";
-import { View, Image, TouchableOpacity } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "../components";
+import Task from '../components/task';
 
-const Bacaan = () => {
+export default function App() {
+  const [task, setTask] = useState();
+  const [taskItems, setTaskItems] = useState([]);
+
   const Headers = () => {
     return (
       <View w="100%">
         <Link
           href={{
-            pathname: "/doa",
+            pathname: "",
           }}>
           <Box rounded="$xl" alignItems="center" w="$50" bg="green" flex={1}>
             <Box position="relative" alignItems="center">
@@ -32,6 +36,18 @@ const Bacaan = () => {
     )
   }
 
+  const handleAddTask = () => {
+    Keyboard.dismiss();
+    setTaskItems([...taskItems, task])
+    setTask(null);
+  }
+
+  const completeTask = (index) => {
+    let itemsCopy = [...taskItems];
+    itemsCopy.splice(index, 1);
+    setTaskItems(itemsCopy)
+  }
+
   return (
     <ScrollView>
       <Header withBack={true} top="$0" title={"Home"} />
@@ -47,12 +63,52 @@ const Bacaan = () => {
           orang yang belajar Al-Qur’an dan
           Mengajarkannya”
         </Text>
-        <View>
+    <View style= {{flex:1}}>
+      {/* Added this scroll view to enable scrolling when list gets longer than the page */}
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1
+        }}
+        keyboardShouldPersistTaps='handled'
+      >
 
+      {/* Today's Tasks */}
+      <View style={{paddingHorizontal:20}}>
+        <View style={{marginTop:10}}>
+          {/* This is where the tasks will go! */}
+          {
+            taskItems.map((item, index) => {
+              return (
+                <TouchableOpacity key={index}  onPress={() => completeTask(index)}>
+                  <Task text={item} /> 
+                </TouchableOpacity>
+              )
+            })
+          }
         </View>
-      </Center>
+      </View>
+        
+      </ScrollView>
+
+      {/* Write a task */}
+      {/* Uses a keyboard avoiding view which ensures the keyboard does not cover the items on screen */}
+      <KeyboardAvoidingView 
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1, zIndex: 999, alignItems: "center", justifyContent: 'space-around', flexDirection: 'row',width:"100%", marginBottom: "10" }}
+      >
+        <Input paddingHorizontal={15} paddingVertical={15} bg='#fff' borderRadius={60} borderColor='#C0C0C0' borderWidth={1} width={250} h={60} size='' variant='rounded'>
+          <InputField placeholder='write a task' value={task} onChangeText={text => setTask(text)}></InputField>
+        </Input>
+        <TouchableOpacity onPress={() => handleAddTask()}>
+          <Box width="60px" height="60px" bg="#fff" rounded="$full" py="$5" px="$6" borderWidth={1} borderColor='#C0C0C0'>
+            <Text>+</Text>
+          </Box>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
+      
+    </View>
+    </Center>
     </ScrollView>
   );
-};
+}
 
-export default Bacaan;
