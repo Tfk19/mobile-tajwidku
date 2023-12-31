@@ -130,3 +130,4 @@ const bacaan = () => {
   );
 };
 export default bacaan;
+

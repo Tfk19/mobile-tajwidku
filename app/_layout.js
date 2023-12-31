@@ -1,6 +1,8 @@
-import { Stack } from "expo-router";
+import { Stack, useNavigation } from "expo-router";
 import { GluestackUIProvider } from "@gluestack-ui/themed";
 import { config } from "@gluestack-ui/config";
+import { Router } from 'expo-router';
+
 
 
 const noHead = { headerShown: false };
@@ -11,6 +13,7 @@ const StackLayout = () => {
       <Stack>
         <Stack.Screen name="(tabs)" options={noHead} />
         <Stack.Screen name="index" options={noHead} />
+        {/* <Stack.Screen name="login" options={noHead} /> */}
         <Stack.Screen name="Soal1" options={noHead} />
         <Stack.Screen name="jadwal" options={noHead} />
         <Stack.Screen name="doa" options={noHead} />
@@ -23,6 +26,8 @@ const StackLayout = () => {
         <Stack.Screen name="Soal3" options={noHead} />
         <Stack.Screen name="Soal4" options={noHead} />
         <Stack.Screen name="Soal5" options={noHead} />
+        <Stack.Screen name="LoginScreen" options={noHead} />
+        <Stack.Screen name="RegisterScreen" options={noHead} />
         {/* <Stack.Screen name="news-detail" options={noHead}/> */}
         {/* <StackNavigation initialRoute={AppNavigator.getRoute('tentang')} /> */}
       </Stack>
