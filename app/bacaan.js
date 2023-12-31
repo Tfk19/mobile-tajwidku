@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
 import { Text, View, TouchableOpacity, Keyboard, Image } from 'react-native';
-import { Center, Heading, Box, ScrollView, Input, KeyboardAvoidingView, InputField, } from "@gluestack-ui/themed";
+import { Center, Heading, Box, ScrollView, Input, KeyboardAvoidingView, InputField, Toast, } from "@gluestack-ui/themed";
 import { Link } from "expo-router";
 import { Header } from "../components";
 import Task from '../components/task';
+import shortid from "shortid";
 
-export default function App() {
-  const [task, setTask] = useState();
-  const [taskItems, setTaskItems] = useState([]);
+const bacaan = () => {
+  const [list, setList] = useState([]);
+  const [inputValue, setInputValue] = useState("");
 
   const Headers = () => {
     return (
@@ -35,18 +36,27 @@ export default function App() {
       </View>
     )
   }
+  const toastID = "toast-add-task";
 
-  const handleAddTask = () => {
-    Keyboard.dismiss();
-    setTaskItems([...taskItems, task])
-    setTask(null);
-  }
-
-  const completeTask = (index) => {
-    let itemsCopy = [...taskItems];
-    itemsCopy.splice(index, 1);
-    setTaskItems(itemsCopy)
-  }
+  const handleAddTask = (data) => {
+    if (data === "") 
+      return;
+    setList((prevList) => [...prevList, { title: data, isCompleted: false }]);
+    setInputValue("");
+  };
+  
+  
+  const handleDeleteTask = (index) => {
+    const deletedList = list.filter((_, listIndex) => listIndex !== index);
+    setList(deletedList);
+  };
+  const handleStatusChange = (index) => {
+    setList((prevList) => {
+      const newList = [...prevList];
+      newList[index].isCompleted = !newList[index].isCompleted;
+      return newList;
+    });
+  };
 
   return (
     <ScrollView>
@@ -77,11 +87,17 @@ export default function App() {
         <View style={{marginTop:10}}>
           {/* This is where the tasks will go! */}
           {
-            taskItems.map((item, index) => {
+            list.map((item, index) => {
               return (
-                <TouchableOpacity key={index}  onPress={() => completeTask(index)}>
-                  <Task text={item} /> 
-                </TouchableOpacity>
+                <Box key={item.title + index.toString()}>
+                  <Task 
+                  data={item}
+                  index={index}
+                  deletedIcon={true}
+                  onItemPress={() => handleStatusChange(index)}
+                  onChecked={() => handleStatusChange(index)}
+                  onDeleted={() => handleDeleteTask(index)}/> 
+                </Box>
               )
             })
           }
@@ -96,10 +112,12 @@ export default function App() {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1, zIndex: 999, alignItems: "center", justifyContent: 'space-around', flexDirection: 'row',width:"100%", marginBottom: "10" }}
       >
-        <Input paddingHorizontal={15} paddingVertical={15} bg='#fff' borderRadius={60} borderColor='#C0C0C0' borderWidth={1} width={250} h={60} size='' variant='rounded'>
-          <InputField placeholder='write a task' value={task} onChangeText={text => setTask(text)}></InputField>
+        <Box>
+          <Input paddingHorizontal={15} paddingVertical={15} bg='#fff' borderRadius={60} borderColor='#C0C0C0' borderWidth={1} width={250} h={60} size='' variant='rounded'>
+          <InputField placeholder='write a task' value={inputValue} onChangeText={(char) => setInputValue(char)}></InputField>
         </Input>
-        <TouchableOpacity onPress={() => handleAddTask()}>
+        </Box>
+        <TouchableOpacity onPress={() => handleAddTask(inputValue)}>
           <Box width="60px" height="60px" bg="#fff" rounded="$full" py="$5" px="$6" borderWidth={1} borderColor='#C0C0C0'>
             <Text>+</Text>
           </Box>
@@ -110,17 +128,5 @@ export default function App() {
     </Center>
     </ScrollView>
   );
-}
-  addWrapper: {
-    width: 60,
-    height: 60,
-    backgroundColor: '#FFF',
-    borderRadius: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: '#C0C0C0',
-    borderWidth: 1,
-  },
-  addText: {},
-});
-
+};
+export default bacaan;
