@@ -1,52 +1,51 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View} from 'react-native';
+import {Box, Text, Icon, Checkbox, CheckboxIndicator, CheckboxIcon, CheckIcon, onChange ,Button, ButtonIcon} from '@gluestack-ui/themed'
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const Task = (props) => {
-
+  const { data, onChecked, onDeleted, deletedIcon, onItemPress } = props;
   return (
-    <View style={styles.item}>
-      <View style={styles.itemLeft}>
-        <View style={styles.square}></View>
-        <Text style={styles.itemText}>{props.text}</Text>
+    <Box bg='teal' padding={15} borderRadius={10} flexDirection='row' alignItems='center' justifyContent='space-between' marginBottom={20}>
+      <View style={{flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap'}}>
+        <Checkbox 
+        value={data.title} 
+        isChecked={data.isCompleted}
+        size="lg" mr={15} 
+        borderColor="transparent" 
+        aria-label="This is a dummy checkbox" 
+        onChange={onChecked}
+        >
+          <CheckboxIndicator>
+            <CheckboxIcon as={CheckIcon}/>
+          </CheckboxIndicator>
+      </Checkbox>
+      <Text 
+        fontSize="$lg"
+        color='#fff'
+        strikeThrough={data.isCompleted}
+        >
+          {data.title}
+      </Text>     
       </View>
-      <View style={styles.circular}></View>
-    </View>
+      {deletedIcon && (
+        <Button
+        py={1}
+        px={3}
+         bg="transparent"
+         onPress={onDeleted}
+          >
+          <ButtonIcon
+            as={FontAwesome5}
+            name="trash"
+            size="md"
+            color={data.isCompleted ? "#fff" : "$red"}
+          />
+        </Button>
+          
+      )}
+    </Box>
   )
 }
-
-const styles = StyleSheet.create({
-  item: {
-    backgroundColor: '#FFF',
-    padding: 15,
-    borderRadius: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  itemLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flexWrap: 'wrap'
-  },
-  square: {
-    width: 24,
-    height: 24,
-    backgroundColor: '#55BCF6',
-    opacity: 0.4,
-    borderRadius: 5,
-    marginRight: 15,
-  },
-  itemText: {
-    maxWidth: '80%',
-  },
-  circular: {
-    width: 12,
-    height: 12,
-    borderColor: '#55BCF6',
-    borderWidth: 2,
-    borderRadius: 5,
-  },
-});
 
 export default Task;
