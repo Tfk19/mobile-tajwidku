@@ -1,14 +1,15 @@
-import React, {useState} from 'react';
-import { Text, View, TouchableOpacity, Keyboard, Image } from 'react-native';
-import { Center, Heading, Box, ScrollView, Input, KeyboardAvoidingView, InputField, Toast, } from "@gluestack-ui/themed";
+import React, {useState, useEffect} from 'react';
+import { Text, View, TouchableOpacity, Image } from 'react-native';
+import { Center, Heading, Box, ScrollView, Input, KeyboardAvoidingView, InputField, } from "@gluestack-ui/themed";
 import { Link } from "expo-router";
 import { Header } from "../components";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Task from '../components/task';
-// import shortid from "shortid";
 
 const bacaan = () => {
   const [list, setList] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(true)
 
   const Headers = () => {
     return (
@@ -36,19 +37,35 @@ const bacaan = () => {
       </View>
     )
   }
-  const toastID = "toast-add-task";
 
   const handleAddTask = (data) => {
     if (data === "") 
       return;
     setList((prevList) => [...prevList, { title: data, isCompleted: false }]);
     setInputValue("");
+    try {
+      AsyncStorage.setItem(
+        "@task-list",
+        JSON.stringify([...list, { title: data, isCompleted: false }])
+      );
+    } catch (e) {
+      console.log("Error add task: in task-all.js");
+      console.error(e.message);
+    }
+
   };
   
   
   const handleDeleteTask = (index) => {
     const deletedList = list.filter((_, listIndex) => listIndex !== index);
     setList(deletedList);
+    try {
+      AsyncStorage.setItem("@task-list", JSON.stringify(deletedList));
+    } catch (e) {
+      console.log("Error delete task: in task-all.js");
+      console.error(e.message);
+    }
+
   };
   const handleStatusChange = (index) => {
     setList((prevList) => {
@@ -56,7 +73,36 @@ const bacaan = () => {
       newList[index].isCompleted = !newList[index].isCompleted;
       return newList;
     });
+    try {
+      AsyncStorage.setItem("@task-list", JSON.stringify(list));
+    } catch (e) {
+      console.log("Error update status task: in task-all.js");
+      console.error(e.message);
+    }
+
   };
+  const getTaskList = async () => {
+    try {
+      const value = await AsyncStorage.getItem("@task-list");
+      if (value !== null) {
+        console.log(value);
+        setList(JSON.parse(value));
+      } else {
+        console.log("No Tasks");
+      }
+    } catch (e) {
+      console.log("Error get task: in task-all.js");
+      console.error(e);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getTaskList();
+  }, []);
+
+
 
   return (
     <ScrollView>
@@ -113,12 +159,12 @@ const bacaan = () => {
         style={{ flex: 1, zIndex: 999, alignItems: "center", justifyContent: 'space-around', flexDirection: 'row',width:"100%", marginBottom: "10" }}
       >
         <Box>
-          <Input paddingHorizontal={15} paddingVertical={15} bg='#fff' borderRadius={60} borderColor='#C0C0C0' borderWidth={1} width={250} h={60} size='' variant='rounded'>
+          <Input paddingHorizontal={15} paddingVertical={15} bg='#fff' borderRadius={60} borderColor='$teal' borderWidth={1} width={250} h={60} size='' variant='rounded'>
           <InputField placeholder='write a task' value={inputValue} onChangeText={(char) => setInputValue(char)}></InputField>
         </Input>
         </Box>
         <TouchableOpacity onPress={() => handleAddTask(inputValue)}>
-          <Box width="60px" height="60px" bg="#fff" rounded="$full" py="$5" px="$6" borderWidth={1} borderColor='#C0C0C0'>
+          <Box width="60px" height="60px" bg="#fff" rounded="$full" py="$5" px="$6" borderWidth={1} borderColor='$teal'>
             <Text>+</Text>
           </Box>
         </TouchableOpacity>
