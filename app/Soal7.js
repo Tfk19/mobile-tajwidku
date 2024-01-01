@@ -21,7 +21,7 @@ const Soal5 = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const snapshot = await database.ref('soal5').once('value'); // Change 'questions' to 'soal1'
+        const snapshot = await database.ref('soal7').once('value'); // Change 'questions' to 'soal1'
         const questionsData = snapshot.val();
 
         if (questionsData) {

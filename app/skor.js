@@ -1,0 +1,136 @@
+import React, { useState,useEffect } from 'react';
+import {
+  Box,
+  Text,
+} from "@gluestack-ui/themed";
+import { clearStorage, getData } from "../src/utils";
+import { View, TouchableOpacity, Animated, SafeAreaView, Image, } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Header } from '../components';
+import { ScrollView } from 'react-native-gesture-handler';
+import { database } from "../src/config/FIREBASE";
+
+const skor = () => {
+  const navigation = useNavigation();
+  const [fadeAnim] = useState(new Animated.Value(1));
+  const [profile, setProfile] = useState(null);
+  const [scoreUser, setScoreUser] = useState(null);
+
+
+    const getUserData = () => {
+      getData("user").then((res) => {
+        const data = res;
+        if (data) {
+          console.log("isi data", data);
+          setProfile(data);
+        } else {
+          // navigation.replace('Login');
+        }
+      });
+    };
+    useEffect(() => {
+        if (navigation) { // Check if navigation is defined before using it
+          const unsubscribe = navigation.addListener("focus", () => {
+            getUserData();
+            // getQuizUser();
+          });
+    
+          return () => {
+            unsubscribe();
+          };
+        }
+      }, [navigation]);
+  
+
+      useEffect(() => {
+        const fetchQuizUser = async () => {
+          try {
+            const snapshot = await database.ref('score').once('value');
+            const scoreData = snapshot.val();
+        
+            if (scoreData) {
+              const userDataArray = Object.entries(scoreData).reduce((accumulator, [scoreId, score]) => {
+                if (score.users === profile?.nama) {
+                  // Jika nilai 'users' sama dengan 'Nafis', tambahkan data ke array
+                  accumulator.push({
+                    id: scoreId,
+                    ...score,
+                  });
+                }
+                return accumulator;
+              }, []);
+        
+              if (userDataArray.length > 0) {
+                // Ada data yang sesuai dengan 'Nafis'
+                console.log('User data found:', userDataArray);
+                setScoreUser(userDataArray);
+              } else {
+                console.log(`No user data found : ${profile?.nama}`)
+              }
+            } else {
+              console.error('No data found in the "score" node.');
+            }
+          } catch (error) {
+            console.error('Error fetching user data:', error);
+          }
+        };
+        
+        fetchQuizUser();
+      }, [profile])
+    
+      console.log(`Berikut adalah hasil user ${JSON.stringify(scoreUser)}`)
+      if (!scoreUser) {
+        return (
+          // <Center>
+            <Text>
+              <Text>Loading...</Text>
+            </Text>
+          // </Center>
+        );
+      }
+      return (
+    <SafeAreaView>
+      <ScrollView>
+        <>
+          <Header withBack={true} title="quiz" />
+          <View>
+            <Image
+              w="$50"
+              h="$50"
+              source={require('../assets/quizs.png')}
+              resizeMode="contain"
+              role="img"
+              alignSelf="center"
+            />
+          </View>
+          <View>
+            <View p={"$4"}>
+              <Text fontSize={"$2xl"}
+                textAlign={"center"}
+                marginTop={"$5"}
+                fontWeight={"bold"}
+                color={"$teal700"}
+              >QUIZ TAJWIDKU</Text>
+            </View>
+
+         </View>
+         <Box mt={"$5"} mx={50}>
+            <Text color="$black" fontSize={"$sm"}>
+              Hasil Quiz Anda Selama Ini
+            </Text>
+            {scoreUser.map((item, index) => {
+              return (
+                    <Text key={index} color="$black" fontSize={"$xl"} mt={"$2"}>
+                      <Text>
+                        Berikut adalah hasil skor dari soal {item.soal} : {item.score}
+                      </Text>
+                    </Text>
+                  )
+            })}
+          </Box>
+        </>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+export default skor;  

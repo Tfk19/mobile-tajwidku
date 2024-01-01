@@ -144,7 +144,7 @@ const Soal3 = () => {
   return (
     <>
      <ScrollView>
-      <Header title="quiz" />
+      <Header withBack={true} title="quiz" />
       <View
         flex={1}
         justifyContent={'top'}

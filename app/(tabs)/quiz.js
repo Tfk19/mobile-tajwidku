@@ -47,6 +47,18 @@ const quiz = () => {
     navigation.navigate('Soal5');
     startQuiz();
   };
+  const navigateToSoal6 = () => {
+    navigation.navigate('Soal6');
+    startQuiz();
+  };
+  const navigateToSoal7 = () => {
+    navigation.navigate('Soal7');
+    startQuiz();
+  };
+  const navigateToSoal8 = () => {
+    navigation.navigate('Soal8');
+    startQuiz();
+  };
 
   return (
     <SafeAreaView>
@@ -64,8 +76,9 @@ const quiz = () => {
             />
           </View>
           <View>
-            <View p={"$4"}>
+            <View>
               <Text fontSize={"$2xl"}
+                paddingTop={10}
                 textAlign={"center"}
                 marginTop={"$5"}
                 fontWeight={"bold"}
@@ -171,6 +184,66 @@ const quiz = () => {
                   fontWeight={"bold"}
                 >Ikhfa Haqiqi </Text>
               </Box>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={navigateToSoal6}>
+              <Box
+                marginTop={10}
+                backgroundColor={"#0F766E"}
+                paddingHorizontal={20}
+                paddingVertical={5}
+                position={"relative"}
+                borderRadius={10}
+                marginHorizontal={40}
+                alignItems={"center"}
+              >
+                <Text
+                  fontSize={20}
+                  textAlign={"center"}
+                  color={"#ffffff"}
+                  letterSpacing={1.1}
+                  fontWeight={"bold"}
+                >Idgham Mimi </Text>
+              </Box>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={navigateToSoal7}>
+              <Box
+                marginTop={10}
+                backgroundColor={"#0F766E"}
+                paddingHorizontal={20}
+                paddingVertical={5}
+                position={"relative"}
+                borderRadius={10}
+                marginHorizontal={40}
+                alignItems={"center"}
+              >
+                <Text
+                  fontSize={20}
+                  textAlign={"center"}
+                  color={"#ffffff"}
+                  letterSpacing={1.1}
+                  fontWeight={"bold"}
+                >Ikhfa Syafawi </Text>
+              </Box>
+              <TouchableOpacity onPress={navigateToSoal8}>
+              <Box
+                marginTop={10}
+                backgroundColor={"#0F766E"}
+                paddingHorizontal={20}
+                paddingVertical={5}
+                position={"relative"}
+                borderRadius={10}
+                marginHorizontal={40}
+                alignItems={"center"}
+              >
+                <Text
+                  fontSize={20}
+                  textAlign={"center"}
+                  color={"#ffffff"}
+                  letterSpacing={1.1}
+                  fontWeight={"bold"}
+                >Idzhar Syafawi </Text>
+              </Box>
+            </TouchableOpacity>
             </TouchableOpacity>
           </View>
         </>

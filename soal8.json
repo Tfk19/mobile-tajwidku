@@ -1,0 +1,27 @@
+{
+  "1": {
+    "question": "Apa yang dimaksud dengan Idzhar Syafawi?",
+    "options": {
+      "1": "Mim sukun bertemu dengan huruf م",
+      "2": "Mim sukun bertemu dengan huruf ب",
+      "3": "Mim sukun bertemu dengan selain huruf م, ب"
+    },
+    "jawabanBenar": "3"
+  },
+  "2": {
+    "question": "Apakah kata 'وَ مَالَهًمْ مِنَ اللّه' termasuk Idzhar Syafawi?",
+    "options": {
+      "1": "Benar",
+      "2": "Salah"
+    },
+    "jawabanBenar": "2"
+  },
+  "3": {
+    "question": "Apakah kata  'اَنْعَمْتَ' termasuk Idzhar Syafawi?",
+    "options": {
+      "1": "Benar",
+      "2": "Salah"
+    },
+    "jawabanBenar": "1"
+  }
+}

@@ -64,21 +64,23 @@ const surah = () => {
       id: item.id,
     };
     return(
+      <TouchableOpacity>
       <Box bg="$teal" p="$2" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
       <Link href={{
         pathname: "/deskripsi",
         params: newsItem,
       }} asChild >
-        <Pressable>
+        <TouchableOpacity>
           <Heading fontWeight="bold" color="white">
             {item.name_simple}
           </Heading>
           <Text color="white">{item.name_complex}</Text>
           <Text color="white">{item.name_arabic}</Text>
           {/* Add other relevant information here */}
-        </Pressable>
+        </TouchableOpacity>
       </Link>
     </Box>
+    </TouchableOpacity>
     );
     
   };
