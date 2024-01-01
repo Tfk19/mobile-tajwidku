@@ -1,10 +1,10 @@
-// Register.js
 import React, { useState } from 'react';
-import { Box, Alert, FormControl, Text, Modal, ModalBackdrop, AlertText } from '@gluestack-ui/themed';
+import { Box, Alert, FormControl, Text, Modal, ModalBackdrop, AlertText, View, Image } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { Input, Button } from '../components';
 import { registerUser } from './auth/authFunction';
 import { Redirect } from 'expo-router';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Register = () => {
   const navigation = useNavigation();
@@ -44,34 +44,52 @@ const Register = () => {
   };
 
   return (
-    <Box flex={1} backgroundColor="$teal" justifyContent="center">
+    <Box flex={1} backgroundColor="$white" justifyContent="center">
+      <View backgroundColor="$white" justifyContent="center" alignItems="center">
+      <Image
+        source={require("../assets/logoo.png")}
+        alignItems="center"
+        w="$40%"
+        h="$50%"
+        p={0}
+        mt={-10}
+        mb={-170}
+        alt="Tajwidku Logo"
+        resizeMode="contain"
+        role="img"
+      />
+      </View>
       <Box
         shadowColor="$black"
         shadowOffset={{ width: 0, height: 2 }}
         shadowOpacity="$25"
         shadowRadius="$3.5"
-        elevation="$5"
+        // elevation="$5"
         backgroundColor="$white"
-        borderRadius="$md"
-        marginTop="$10"
+        // borderRadius="$md"
+
         marginHorizontal="$6"
         p="$5"
+        marginBottom="$20"
       >
-        <Text size="3xl" color="$black" fontWeight="bold">
-          Hello~
+        <View alignItems='center'>
+        <Text size="3xl" color="$teal" fontWeight="bold">
+          DAFTAR
         </Text>
         <Text size="sm" color="$black" my="$1">
-          Sign up to continue!
+          Silahkan Mengisi Form!
         </Text>
+        </View>
         <FormControl>
-          <Input label="Nama" value={nama} onChangeText={(nama) => setNama(nama)} height="$10" />
-          <Input label="Email" value={email} onChangeText={(email) => setEmail(email)} height="$10" />
+          <Input label="Nama" value={nama} onChangeText={(nama) => setNama(nama)} height="$10" placeholder="Masukkan Nama" />
+          <Input label="Email" value={email} onChangeText={(email) => setEmail(email)} height="$10" placeholder="Masukkan Email" />
           <Input
             label="No. Handphone"
             keyboardType="phone-pad"
             value={nohp}
             onChangeText={(nohp) => setNohp(nohp)}
             height="$10"
+            placeholder="Masukkan No. Handphone"
           />
           <Input
             label="Password"
@@ -79,11 +97,14 @@ const Register = () => {
             value={password}
             onChangeText={(password) => setPassword(password)}
             height="$10"
+            placeholder="Masukkan Password"
           />
         </FormControl>
+        <TouchableOpacity>
         <Box flexDirection="column" my="$5">
           <Button
             title="Register"
+            backgroundColor="$teal"
             type="text"
             icon="submit"
             padding="$3"
@@ -93,6 +114,7 @@ const Register = () => {
             }}
           />
         </Box>
+        </TouchableOpacity>
       </Box>
 
       {/* show Alert */}

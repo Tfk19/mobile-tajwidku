@@ -3,7 +3,7 @@ import { Input as GlueInput } from "@gluestack-ui/themed";
 import React from "react";
 // import { Picker } from '@react-native-picker/picker'; // Import Picker from @react-native-picker/picker
 
-const Input = ({ dropdown, textarea, width, height, fontSize, label, value, secureTextEntry, keyboardType, onChangeText, disabled }) => {
+const Input = ({ dropdown, placeholder, textarea, width, height, fontSize, label, value, secureTextEntry, keyboardType, onChangeText, disabled }) => {
   if (textarea) {
     return (
       <VStack>
@@ -24,7 +24,7 @@ const Input = ({ dropdown, textarea, width, height, fontSize, label, value, secu
           {label}
         </Text>
         <GlueInput width={width} height={height} borderWidth={"$1"} borderRadius={"$sm"} borderColor={"$warmGray500"}>
-          <InputField secureTextEntry={secureTextEntry} value={value} keyboardType={keyboardType} onChangeText={onChangeText} editable={disabled ? false : true} />
+          <InputField secureTextEntry={secureTextEntry} value={value} keyboardType={keyboardType} onChangeText={onChangeText} placeholder={placeholder} editable={disabled ? false : true} />
         </GlueInput>
       </FormControlLabel>
     </>

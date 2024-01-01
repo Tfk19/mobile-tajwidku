@@ -1,0 +1,27 @@
+{
+  "1": {
+    "question": "Apa yang dimaksud dengan Ikhfa' Syafawi?",
+    "options": {
+      "1": "Mim sukun bertemu م",
+      "2": "Mim sukun bertemu ب",
+      "3": "Mim sukun bertemu م, ب"
+    },
+    "jawabanBenar": "2"
+  },
+  "2": {
+    "question": "Apakah kata 'وَ مَالَهًمْ مِنَ اللّه' termasuk Ikhfa' Syafawi?",
+    "options": {
+      "1": "Benar",
+      "2": "Salah"
+    },
+    "jawabanBenar": "2"
+  },
+  "3": {
+    "question": "Apakah kata 'اِعْتَصِمْ بِاللّه' termasuk Ikhfa' Syafawi?",
+    "options": {
+      "1": "Benar",
+      "2": "Salah"
+    },
+    "jawabanBenar": "1"
+  }
+}

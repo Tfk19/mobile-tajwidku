@@ -103,14 +103,18 @@ const Jadwal = () => {
 
       <Center>
         <Headers />
-        <View style={{ height: 20 }} />
+        <View />
         <Heading color="$green800" py="$4" >
           KOTA SURABAYA
         </Heading>
-        <Text color="$green700" bottom="$2" px="$10" textAlign="center" sizes="6xl" >
-          “Sebaik-baiknya diantara kamu adalah
-          orang yang belajar Al-Qur’an dan
-          Mengajarkannya”
+        <Text color="$green700" bottom="$2" px="$10" textAlign="center" sizes="6xl" bold>
+        اُتْلُ مَآ اُوْحِيَ اِلَيْكَ مِنَ الْكِتٰبِ وَاَقِمِ الصَّلٰوةَۗ اِنَّ الصَّلٰوةَ تَنْهٰى عَنِ الْفَحْشَاۤءِ وَالْمُنْكَرِ ۗوَلَذِكْرُ اللّٰهِ اَكْبَرُ ۗوَاللّٰهُ يَعْلَمُ مَا تَصْنَعُوْنَ (العنكبوت : 45)
+        
+        </Text>
+        <Text mt={10} color="$green700" bottom="$2" px="$10" textAlign="justify" fontSize={15}>
+        Artinya:"Bacalah Kitab (Al-Qur'an) yang telah diwahyukan kepadamu (Muhammad) dan laksanakanlah salat.
+        Sesungguhnya salat itu mencegah dari (perbuatan) keji dan mungkar. Dan (ketahuilah) mengingat Allah (salat)
+         itu lebih besar (keutamaannya dari ibadah yang lain). Allah mengetahui apa yang kamu kerjakan." (Al-Ankabut - 45 )"
         </Text>
         <FlatList
           data={datas.length > 0 ? [datas[0]] : []}

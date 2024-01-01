@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Box, Alert, FormControl, Heading, Text, Modal, ModalBackdrop, AlertText } from "@gluestack-ui/themed";
+import { Box, Alert, FormControl, Heading, Text, Modal, ModalBackdrop, AlertText, Image, View } from "@gluestack-ui/themed";
 import { Input, Button } from "../components";
 import { useNavigation } from "@react-navigation/native";
+import { TextInput } from "react-native";
 import { loginUser } from "./auth/authFunction"; // Replace with your actual auth function
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Login = () => {
   const navigation = useNavigation();
@@ -32,48 +34,65 @@ const Login = () => {
   };
 
   return (
-    <Box flex={1} backgroundColor="$teal" justifyContent="center">
+    <Box flex={1} backgroundColor="$white" justifyContent="center">
+      <View backgroundColor="$white" justifyContent="center" alignItems="center">
+      <Image
+        source={require("../assets/logoo.png")}
+        alignItems="center"
+        w="$50%"
+        h="$60%"
+        p={0}
+        mt={-100}
+        mb={-170}
+        alt="Tajwidku Logo"
+        resizeMode="contain"
+        role="img"
+      />
+      </View>
       <Box
         shadowColor="$black"
         shadowOffset={{ width: 0, height: 2 }}
         shadowOpacity="$25"
         shadowRadius="$3.5"
-        elevation="$5"
         backgroundColor="$white"
-        borderRadius="$md"
-        marginTop="$10"
         marginHorizontal="$6"
         p="$5"
       >
-        <Heading size="3xl" color="$black">
-          Welcome
-        </Heading>
-        <Text size="sm" color="$black" my="$1">
-          Sign in to continue!
-        </Text>
         <FormControl>
-          <Input label="Email" value={email} onChangeText={(text) => setEmail(text)} height="$10" />
+          <Input label="Email" 
+          value={email} 
+          onChangeText={(text) => setEmail(text)} 
+          height="$10" 
+          placeholder="Masukkan email anda"/>
           <Input
             label="Password"
             value={password}
             onChangeText={(text) => setPassword(text)}
             height="$10"
             secureTextEntry
+            placeholder="Masukkan password anda"
           />
         </FormControl>
         <Box flexDirection="column" my="$5">
-          <Button title="Login" type="text" padding="$3" onPress={login} />
+          <TouchableOpacity>
+          <Button title="Login" type="text" padding="$3" onPress={login} backgroundColor="$teal"/>
+          </TouchableOpacity>
           <Text size="sm" color="$black" mt="$4">
             Don't have an account?
           </Text>
+          <TouchableOpacity>
           <Button
             title="Register"
+            backgroundColor="$teal"
             type="text"
+            color="teal"
             padding="$3"
             onPress={() => {
-              navigation.navigate("RegisterScreen");
+              navigation.replace("RegisterScreen");
             }}
           />
+          </TouchableOpacity>
+         
         </Box>
       </Box>
 
