@@ -45,7 +45,7 @@ const Materi = () => {
               <Image
                 resizeMode="contain"
                 role="img"
-                source={require('../../assets/Frame1.png')}
+                source={require('../../assets/materis.png')}
               />
               <Box
                 flexDirection="column"
@@ -54,12 +54,12 @@ const Materi = () => {
                 textAlign="center"
                 position="absolute"
               >
-                <Heading fontSize={40} paddingTop={20} color="$white">
+                {/* <Heading fontSize={40} paddingTop={20} color="$white">
                   MATERI
                 </Heading>
                 <Text fontSize={16} color="$white">
                   TAJWIDKU
-                </Text>
+                </Text> */}
               </Box>
             </Box>
           </Box>

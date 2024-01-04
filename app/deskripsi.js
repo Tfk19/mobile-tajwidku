@@ -56,6 +56,10 @@ const deskripsi = () => {
     id: params.id
   }
   const Content = () => {
+    if (!deskripsi.length) {
+      return <Text>Loading...</Text>;
+    }
+    
     return (
       
       // <FlatList
