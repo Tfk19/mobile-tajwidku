@@ -4,7 +4,6 @@ import { Center, Heading, Box, ScrollView, Input, KeyboardAvoidingView, InputFie
 import { Link } from "expo-router";
 import { Header } from "../components";
 import Task from '../components/task';
-import shortid from "shortid";
 
 const bacaan = () => {
   const [list, setList] = useState([]);

@@ -7,6 +7,19 @@ import { Header } from "../components";
 
 const Jadwal = () => {
   const [datas, setDatas] = useState([]);
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [filteringDate, setFilteringDate] = useState(null);
+  const [currentMonth, setCurrentMonth] = useState(null);
+  const [dataJadwal, setDataJadwal] = useState(null);
+  const [acuanHari, setAcuanHari] = useState(false);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   const fetchData = () => {
     fetch("https://raw.githubusercontent.com/lakuapik/jadwalsholatorg/master/adzan/surabaya/2023/12.json")
@@ -16,10 +29,91 @@ const Jadwal = () => {
       })
       .catch((err) => console.log(err));
   };
+  
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  // Test api realtime
+  // console.log(currentTime)
+  const formattedTime = currentTime.toLocaleTimeString();
+  const options = { day: 'numeric', month: 'long', year: 'numeric' };
+  // const formattedDate = currentTime.toLocaleDateString(undefined, options);
+  // Create an object with day, month, and year properties
+  // const formattedDate = {};
+
+  const formatter = new Intl.DateTimeFormat('en', { day: 'numeric', month: 'long', year: 'numeric' });
+const formattedParts = formatter.formatToParts(currentTime);
+
+// Create an object with day, month, and year properties
+const formattedDate = {};
+for (const part of formattedParts) {
+  formattedDate[part.type] = part.value;
+}
+
+useEffect(() => {
+  setFilteringDate(formattedDate)
+  setCurrentMonth(formattedDate.month)
+}, [])
+
+ 
+  
+  // console.log(bulan)
+  const jadwalShalat = () => {
+    const monthNameToNumber = {
+      'January': 1,
+      'February': 2,
+      'March': 3,
+      'April': 4,
+      'May': 5,
+      'June': 6,
+      'July': 7,
+      'August': 8,
+      'September': 9,
+      'October': 10,
+      'November': 11,
+      'December': 12
+    };
+  
+    const filteringMonth = currentMonth; 
+    const bulan = monthNameToNumber[filteringMonth];
+
+    // console.log(`berikut adalah year ${filteringDate}`)
+    if (!filteringDate) {
+      return (
+        <Center>
+          <View>
+            <Text>Loading...</Text>
+          </View>
+        </Center>
+      );
+    }
+    fetch(`https://api.myquran.com/v2/sholat/jadwal/1638/${filteringDate.year}/${bulan}/${filteringDate.day}`)
+    .then((response) => response.json())
+    .then((hasil) => {
+      // console.log(`berikut adalah hasil ${JSON.stringify(hasil.data.jadwal)}`)
+      setDataJadwal(hasil.data.jadwal)
+      setAcuanHari(true)
+
+    })
+  }
+
+  
+
+  useEffect(() => {
+    jadwalShalat()
+  }, [currentTime])
+
+  if (!dataJadwal) {
+    return (
+      <Center>
+        <View>
+          <Text>Loading...</Text>
+        </View>
+      </Center>
+    );
+  }
 
   const Headers = () => {
     return (
@@ -54,6 +148,8 @@ const Jadwal = () => {
     );
   };
 
+  // console.log(dataJadwal.imsak)
+
   const renderItem = ({ item }) => {
     const newsItem = {
       id: item.id,
@@ -64,35 +160,27 @@ const Jadwal = () => {
         {/* <Text>{item.tanggal}</Text> */}
         <Pressable>
           <Box bg="$teal" p="$5" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
-            <Text color='white'>{`Imsyak: ${item.imsyak ? item.imsyak : "N/A"}`}</Text>
+            <Text color='white'>{`Imsyak: ${dataJadwal.imsak ? dataJadwal.imsak : "N/A"}`}</Text>
           </Box>
           <Box bg="$teal" p="$5" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
-            <Text color='white'>{`Shubuh: ${item.shubuh ? item.shubuh : "N/A"}`}</Text>
+            <Text color='white'>{`Shubuh: ${dataJadwal.subuh ? dataJadwal.subuh : "N/A"}`}</Text>
           </Box>
           <Box bg="$teal" p="$5" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
-            <Text color='white'>{`dhuha: ${item.dhuha ? item.dhuha : "N/A"}`}</Text>
+            <Text color='white'>{`dhuha: ${dataJadwal.dhuha ? dataJadwal.dhuha : "N/A"}`}</Text>
           </Box>
           <Box bg="$teal" p="$5" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
-            <Text color='white'>{`dzuhur: ${item.dzuhur ? item.dzuhur : "N/A"}`}</Text>
+            <Text color='white'>{`dzuhur: ${dataJadwal.dzuhur ? dataJadwal.dzuhur : "N/A"}`}</Text>
           </Box>
           <Box bg="$teal" p="$5" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
-            <Text color='white'>{`ashr: ${item.ashr ? item.ashr : "N/A"}`}</Text>
+            <Text color='white'>{`ashr: ${dataJadwal.ashar ? dataJadwal.ashar : "N/A"}`}</Text>
           </Box>
           <Box bg="$teal" p="$5" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
-            <Text color='white'>{`magrib: ${item.magrib ? item.magrib : "N/A"}`}</Text>
+            <Text color='white'>{`magrib: ${dataJadwal.maghrib ? dataJadwal.maghrib : "N/A"}`}</Text>
           </Box>
           <Box bg="$teal" p="$5" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
-            <Text color='white'>{`isya: ${item.isya ? item.isya : "N/A"}`}</Text>
+            <Text color='white'>{`isya: ${dataJadwal.isya ? dataJadwal.isya : "N/A"}`}</Text>
           </Box>
         </Pressable>
-        {/* <Box bg="$teal" p="$2" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
-            <Pressable >
-              <Heading fontWeight="bold" color="white">
-                {item.ashr}
-              </Heading>
-              <Text color="white">{item.isya}</Text>
-            </Pressable>
-        </Box> */}
       </Box>
     );
   };
