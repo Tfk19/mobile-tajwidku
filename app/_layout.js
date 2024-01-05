@@ -40,6 +40,7 @@ const StackLayout = () => {
         <Stack.Screen name="Soal8" options={noHead} />
         <Stack.Screen name="LoginScreen" options={noHead} />
         <Stack.Screen name="RegisterScreen" options={noHead} />
+        <Stack.Screen name="web" options={noHead} />
         {/* <Stack.Screen name="news-detail" options={noHead}/> */}
         {/* <StackNavigation initialRoute={AppNavigator.getRoute('tentang')} /> */}
       </Stack>
