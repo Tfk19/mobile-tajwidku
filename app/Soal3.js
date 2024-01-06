@@ -225,12 +225,14 @@ const Soal3 = () => {
               justifyContent={'center'}
               fontWeight={'bold'}
               marginBottom={5}
+              padding={5}
+              marginTop={15}
             >Hasil Quiz</Text>
             <Text
               justifyContent={'center'}
               fontSize={18}
               marginBottom={5}
-            >{`Skor Anda: ${skor}/${Object.keys(questions).length}`}</Text>
+            >{`Skor Anda: ${Math.round((skor / Object.keys(questions).length) * 100)}`}</Text>
             <TouchableOpacity onPress={resetQuiz}>
               <View
                 marginTop={10}

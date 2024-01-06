@@ -76,30 +76,23 @@ const quiz = () => {
             />
           </View>
           <View>
-            <View>
-              <Text fontSize={"$2xl"}
-                paddingTop={10}
-                textAlign={"center"}
-                marginTop={"$5"}
-                fontWeight={"bold"}
-                color={"$teal700"}
-              >QUIZ TAJWIDKU</Text>
-            </View>
 
             <TouchableOpacity onPress={navigateToSoal1}>
               <Box
-                marginTop={10}
+                paddingTop={25}
+                paddingBottom={25}
+                marginTop={20}
                 backgroundColor={"#0F766E"}
                 paddingHorizontal={20}
                 paddingVertical={5}
                 position={"relative"}
                 borderRadius={10}
-                marginHorizontal={40}
-                alignItems={"center"}
+                marginHorizontal={50}
+                alignItems={"left"}
               >
                 <Text
                   fontSize={20}
-                  textAlign={"center"}
+                  textAlign={"left"}
                   color={"#ffffff"}
                   letterSpacing={1.1}
                   fontWeight={"bold"}
@@ -107,19 +100,21 @@ const quiz = () => {
               </Box>
             </TouchableOpacity>
             <TouchableOpacity onPress={navigateToSoal2} >
-              <Box
-                marginTop={10}
+            <Box
+                paddingTop={25}
+                paddingBottom={25}
+                marginTop={20}
                 backgroundColor={"#0F766E"}
                 paddingHorizontal={20}
                 paddingVertical={5}
                 position={"relative"}
                 borderRadius={10}
-                marginHorizontal={40}
-                alignItems={"center"}
+                marginHorizontal={50}
+                alignItems={"left"}
               >
                 <Text
                   fontSize={20}
-                  textAlign={"center"}
+                  textAlign={"left"}
                   color={"#ffffff"}
                   letterSpacing={1.1}
                   fontWeight={"bold"}
@@ -127,19 +122,21 @@ const quiz = () => {
               </Box>
             </TouchableOpacity>
             <TouchableOpacity onPress={navigateToSoal3}>
-              <Box
-                marginTop={10}
+            <Box
+                paddingTop={25}
+                paddingBottom={25}
+                marginTop={20}
                 backgroundColor={"#0F766E"}
                 paddingHorizontal={20}
                 paddingVertical={5}
                 position={"relative"}
                 borderRadius={10}
-                marginHorizontal={40}
-                alignItems={"center"}
+                marginHorizontal={50}
+                alignItems={"left"}
               >
                 <Text
                   fontSize={20}
-                  textAlign={"center"}
+                  textAlign={"left"}
                   color={"#ffffff"}
                   letterSpacing={1.1}
                   fontWeight={"bold"}
@@ -147,38 +144,43 @@ const quiz = () => {
               </Box>
             </TouchableOpacity>
             <TouchableOpacity onPress={navigateToSoal4}>
-              <Box
-                marginTop={10}
+            <Box
+                paddingTop={25}
+                paddingBottom={25}
+                marginTop={20}
                 backgroundColor={"#0F766E"}
                 paddingHorizontal={20}
                 paddingVertical={5}
                 position={"relative"}
                 borderRadius={10}
-                marginHorizontal={40}
-                alignItems={"center"}
+                marginHorizontal={50}
+                alignItems={"left"}
               >
                 <Text
                   fontSize={20}
-                  textAlign={"center"}
+                  textAlign={"left"}
                   color={"#ffffff"}
                   letterSpacing={1.1}
-                  fontWeight={"bold"}>Iqlab</Text>
+                  fontWeight={"bold"}
+                  >Iqlab</Text>
               </Box>
             </TouchableOpacity>
             <TouchableOpacity onPress={navigateToSoal5}>
-              <Box
-                marginTop={10}
+            <Box
+                paddingTop={25}
+                paddingBottom={25}
+                marginTop={20}
                 backgroundColor={"#0F766E"}
                 paddingHorizontal={20}
                 paddingVertical={5}
                 position={"relative"}
                 borderRadius={10}
-                marginHorizontal={40}
-                alignItems={"center"}
+                marginHorizontal={50}
+                alignItems={"left"}
               >
                 <Text
                   fontSize={20}
-                  textAlign={"center"}
+                  textAlign={"left"}
                   color={"#ffffff"}
                   letterSpacing={1.1}
                   fontWeight={"bold"}
@@ -186,19 +188,21 @@ const quiz = () => {
               </Box>
             </TouchableOpacity>
             <TouchableOpacity onPress={navigateToSoal6}>
-              <Box
-                marginTop={10}
+            <Box
+                paddingTop={25}
+                paddingBottom={25}
+                marginTop={20}
                 backgroundColor={"#0F766E"}
                 paddingHorizontal={20}
                 paddingVertical={5}
                 position={"relative"}
                 borderRadius={10}
-                marginHorizontal={40}
-                alignItems={"center"}
+                marginHorizontal={50}
+                alignItems={"left"}
               >
                 <Text
                   fontSize={20}
-                  textAlign={"center"}
+                  textAlign={"left"}
                   color={"#ffffff"}
                   letterSpacing={1.1}
                   fontWeight={"bold"}
@@ -206,19 +210,21 @@ const quiz = () => {
               </Box>
             </TouchableOpacity>
             <TouchableOpacity onPress={navigateToSoal7}>
-              <Box
-                marginTop={10}
+            <Box
+                paddingTop={25}
+                paddingBottom={25}
+                marginTop={20}
                 backgroundColor={"#0F766E"}
                 paddingHorizontal={20}
                 paddingVertical={5}
                 position={"relative"}
                 borderRadius={10}
-                marginHorizontal={40}
-                alignItems={"center"}
+                marginHorizontal={50}
+                alignItems={"left"}
               >
                 <Text
                   fontSize={20}
-                  textAlign={"center"}
+                  textAlign={"left"}
                   color={"#ffffff"}
                   letterSpacing={1.1}
                   fontWeight={"bold"}
@@ -226,18 +232,21 @@ const quiz = () => {
               </Box>
               <TouchableOpacity onPress={navigateToSoal8}>
               <Box
-                marginTop={10}
+                paddingTop={25}
+                paddingBottom={25}
+                marginTop={20}
+                marginBottom={100}
                 backgroundColor={"#0F766E"}
                 paddingHorizontal={20}
                 paddingVertical={5}
                 position={"relative"}
                 borderRadius={10}
-                marginHorizontal={40}
-                alignItems={"center"}
+                marginHorizontal={50}
+                alignItems={"left"}
               >
                 <Text
                   fontSize={20}
-                  textAlign={"center"}
+                  textAlign={"left"}
                   color={"#ffffff"}
                   letterSpacing={1.1}
                   fontWeight={"bold"}

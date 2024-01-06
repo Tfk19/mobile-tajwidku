@@ -97,36 +97,38 @@ const skor = () => {
             <Image
               w="$50"
               h="$50"
-              source={require('../assets/quizs.png')}
+              source={require('../assets/hasilquiz.png')}
               resizeMode="contain"
               role="img"
               alignSelf="center"
             />
           </View>
           <View>
+            <Box mt={10} mx={50} backgroundColor='teal' borderRadius={"$xl"}>
             <View p={"$4"}>
-              <Text fontSize={"$2xl"}
-                textAlign={"center"}
-                marginTop={"$5"}
+              <Text fontSize={"$xl"}
+                textAlign={"left"}
+                padding={5}
+                marginTop={5}
+                marginLeft={5}
                 fontWeight={"bold"}
-                color={"$teal700"}
-              >QUIZ TAJWIDKU</Text>
+                color={"white"}
+              >Hasil Quiz Anda</Text>
             </View>
+            </Box>
 
          </View>
-         <Box mt={"$5"} mx={50}>
-            <Text color="$black" fontSize={"$sm"}>
-              Hasil Quiz Anda Selama Ini
-            </Text>
-            {scoreUser.map((item, index) => {
-              return (
-                    <Text key={index} color="$black" fontSize={"$xl"} mt={"$2"}>
-                      <Text>
-                        Berikut adalah hasil skor dari soal {item.soal} : {item.score}
-                      </Text>
-                    </Text>
-                  )
-            })}
+         <Box mx={50}>
+         {scoreUser.map((item, index) => {
+  const percentage = Math.round((item.score / 3) * 100); // Assuming the maximum score is 50
+  return (
+    <Text key={index} color="$black" fontSize={"$xl"} mt={"$2"}>
+      <Text>
+        Berikut adalah hasil skor dari soal {item.soal} : <Text color='teal' bold>{percentage}</Text>
+      </Text>
+    </Text>
+  );
+})}
           </Box>
         </>
       </ScrollView>

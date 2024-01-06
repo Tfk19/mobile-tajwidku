@@ -1,11 +1,11 @@
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Center, Heading, Box, View, Text, ScrollView } from "@gluestack-ui/themed";
-import {TouchableOpacity, Image } from 'react-native';
+import { Center, Box, Text } from '@gluestack-ui/themed';
 import { Header } from '../components';
 import { Audio } from 'expo-av';
 import { database } from '../src/config/FIREBASE';
 import audio from '../assets/music1.mp3';
-import React, { useState, useEffect, useCallback } from 'react';
 import { getData } from '../src/utils';
 
 const Soal1 = () => {
@@ -40,7 +40,6 @@ const Soal1 = () => {
     fetchQuestions();
   }, []);
 
-  
   const getUserData = () => {
     getData("user").then((res) => {
       const data = res;
@@ -55,8 +54,6 @@ const Soal1 = () => {
   useEffect(() => {
     getUserData();
   }, [])
-
-
 
   useEffect(() => {
     const musik = async () => {
@@ -130,80 +127,113 @@ const Soal1 = () => {
     }
   };
 
-  const getColorForOption = useCallback(
-    (optionIndex) => {
-      const { jawabanBenar } = questions[pertanyaan] || {};
+  const getColorForOption = (optionIndex) => {
+    const { jawabanBenar } = questions[pertanyaan] || {};
 
-      if (userAnswer === 'correct' && optionIndex === parseInt(jawabanBenar)) {
-        return 'green';
-      } else if (userAnswer === 'wrong' && optionIndex === parseInt(jawabanBenar)) {
-        return 'green'; // Correct answer is in teal when the user answers incorrectly
-      } else if (userAnswer === 'correct' || userAnswer === 'wrong') {
-        return optionIndex === parseInt(jawabanBenar) ? 'green' : 'red'; // User's correct answer is in green, and correct answer is in red
-      } else {
-        return '#0F766E'; // Default color
-      }
-    },
-    [questions, pertanyaan, userAnswer]
-  );
+    if (userAnswer === 'correct' && optionIndex === parseInt(jawabanBenar)) {
+      return 'green';
+    } else if (userAnswer === 'wrong' && optionIndex === parseInt(jawabanBenar)) {
+      return 'green'; // Correct answer is in teal when the user answers incorrectly
+    } else if (userAnswer === 'correct' || userAnswer === 'wrong') {
+      return optionIndex === parseInt(jawabanBenar) ? 'green' : 'red'; // User's correct answer is in green, and correct answer is in red
+    } else {
+      return '#0F766E'; // Default color
+    }
+  };
 
   return (
     <>
-     <ScrollView>
-      <Header withBack={true} title="quiz" />
-      <View
-        flex={1}
-        justifyContent={'top'}
-        alignItems={'center'}
-        paddingHorizontal={20}
-      >
-        <Image
+      <ScrollView>
+        <Header withBack={true} title="quiz" />
+        <View
           flex={1}
-          w={1}
-          h={1}
-          source={require('../assets/quizs.png')}
-          role="img"
-          alignSelf="center"
-          alt='img'
-          resizeMode="contain"
-        />
-      </View>
-      <View
-        flex={1}
-        justifyContent={'top'}
-        alignItems={'center'}
-        paddingHorizontal={20}
-      >
-        {!hasil ? (
-          <View>
-            <Text
-              alignSelf={"center"}
-              fontSize={18}
-              fontWeight={'bold'}
-              marginBottom={20}
-            >
-              {questions[pertanyaan]?.question}
-            </Text>
-            {Object.values(questions[pertanyaan]?.options || {}).map((option, index) => (
-              <TouchableOpacity
-                key={index}
-                onPress={() => handleAnswer(index + 1)}  // Pass the option index (starting from 1)
+          justifyContent={'top'}
+          alignItems={'center'}
+          paddingHorizontal={20}
+        >
+          <Image
+            flex={1}
+            w={1}
+            h={1}
+            source={require('../assets/quizs.png')}
+            role="img"
+            alignSelf="center"
+            alt='img'
+            resizeMode="contain"
+          />
+        </View>
+        <View
+          flex={1}
+          justifyContent={'top'}
+          alignItems={'center'}
+          paddingHorizontal={20}
+        >
+          {!hasil ? (
+            <View>
+              <Text
+                alignSelf={"center"}
+                fontSize={18}
+                fontWeight={'bold'}
+                marginBottom={20}
               >
-                <View
-                  backgroundColor={getColorForOption(index + 1)}
-                  padding={10}
-                  marginVertical={5}
-                  borderRadius={5}
+                {questions[pertanyaan]?.question}
+              </Text>
+              {Object.values(questions[pertanyaan]?.options || {}).map((option, index) => (
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => handleAnswer(index + 1)}  // Pass the option index (starting from 1)
                 >
-                  <Text
-                    color={'#fff'}
-                    fontSize={16}
-                  >{option}</Text>
-                </View>
-              </TouchableOpacity>
-            ))}
-            {userAnswer && (
-              <TouchableOpacity onPress={showNextQuestion}>
+                  <View
+                    backgroundColor={getColorForOption(index + 1)}
+                    padding={10}
+                    marginVertical={5}
+                    borderRadius={5}
+                  >
+                    <Text
+                      color={'#fff'}
+                      fontSize={16}
+                    >{option}</Text>
+                  </View>
+                </TouchableOpacity>
+              ))}
+              {userAnswer && (
+                <TouchableOpacity onPress={showNextQuestion}>
+                  <View
+                    marginTop={10}
+                    backgroundColor={'#0F766E'}
+                    paddingTop={10}
+                    paddingBottom={10}
+                    borderRadius={5}
+                  >
+                    <Text
+                      justifyContent={'center'}
+                      alignItems={'center'}
+                      textAlign={'center'}
+                      marginTop={0}
+                      color={'#fff'}
+                      fontSize={16}
+                    >Next Question</Text>
+                  </View>
+                </TouchableOpacity>
+              )}
+            </View>
+          ) : (
+            <View>
+              <Text
+                alignSelf={'center'}
+                fontSize={24}
+                justifyContent={'center'}
+                fontWeight={'bold'}
+                marginBottom={5}
+                padding={5}
+                marginTop={15}
+              >Hasil Quiz</Text>
+              <Text
+                justifyContent={'center'}
+                fontSize={18}
+                marginBottom={5}
+              >{`Skor Anda: ${Math.round((skor / Object.keys(questions).length) * 100)}`}</Text>
+              <TouchableOpacity onPress={resetQuiz}>
                 <View
                   marginTop={10}
                   backgroundColor={'#0F766E'}
@@ -218,64 +248,30 @@ const Soal1 = () => {
                     marginTop={0}
                     color={'#fff'}
                     fontSize={16}
-                  >Next Question</Text>
+                  >Ulangi Quiz</Text>
                 </View>
               </TouchableOpacity>
-            )}
-          </View>
-        ) : (
-          <View>
-            <Text
-              alignSelf={'center'}
-              fontSize={24}
-              justifyContent={'center'}
-              fontWeight={'bold'}
-              marginBottom={5}
-            >Hasil Quiz</Text>
-            <Text
-              justifyContent={'center'}
-              fontSize={18}
-              marginBottom={5}
-            >{`Skor Anda: ${skor}/${Object.keys(questions).length}`}</Text>
-            <TouchableOpacity onPress={resetQuiz}>
-              <View
-                marginTop={10}
-                backgroundColor={'#0F766E'}
-                paddingTop={10}
-                paddingBottom={10}
-                borderRadius={5}
-              >
-                <Text
-                  justifyContent={'center'}
-                  alignItems={'center'}
-                  textAlign={'center'}
-                  marginTop={0}
-                  color={'#fff'}
-                  fontSize={16}
-                >Ulangi Quiz</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={navigateToSoal1}>
-              <View
-                marginTop={10}
-                backgroundColor={'#0F766E'}
-                paddingTop={10}
-                paddingBottom={10}
-                borderRadius={5}
-              >
-                <Text
-                  justifyContent={'center'}
-                  alignItems={'center'}
-                  textAlign={'center'}
-                  marginTop={0}
-                  color={'#fff'}
-                  fontSize={16}
-                >Ke Menu Home</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        )}
-      </View>
+              <TouchableOpacity onPress={navigateToSoal1}>
+                <View
+                  marginTop={10}
+                  backgroundColor={'#0F766E'}
+                  paddingTop={10}
+                  paddingBottom={10}
+                  borderRadius={5}
+                >
+                  <Text
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    textAlign={'center'}
+                    marginTop={0}
+                    color={'#fff'}
+                    fontSize={16}
+                  >Ke Menu Home</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
       </ScrollView>
     </>
   );
