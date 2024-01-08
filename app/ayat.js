@@ -36,7 +36,7 @@ const Ayat = () => {
       <ScrollView>
         <Header withBack={true} top="$0" title={"Home"} />
         <Center>
-          <Box bg="$#27847D" p="$2" mb="$3">
+          <Box bg="$#27847D" p="$2" mb="$3" borderRadius={10} padding={20} paddingHorizontal={50}>
             <Text color="white">{surat.namaLatin}</Text>
           </Box>
           <Box bg="" p="$2" paddingHorizontal={10} w={350} mb="$3">

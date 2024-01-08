@@ -104,14 +104,14 @@ const deskripsi = () => {
           </Box>
 
           {/* Button to ayat */}
-          <Box bg="$#27847D" p="$5" >
+          <Box bg="$#27847D" p="$5" borderRadius={10} >
             <Link href={{
                   pathname: "/ayat",
                   params: idAyat
                 }} asChild >
-                <Pressable >
-                  <Text color="white">Read More</Text>
-                </Pressable>
+                <TouchableOpacity >
+                  <Text color="white">Baca Surat {selectedChapter.name_arabic}</Text>
+                </TouchableOpacity>
             </Link>
           </Box>
           </Center>
@@ -126,7 +126,7 @@ const deskripsi = () => {
       <Header withBack={true} />
       {/* Headers End */}
       <Center mt={20}>
-        <Box bg="$#27847D" paddingHorizontal={100} paddingVertical={20}>
+        <Box bg="$#27847D" paddingHorizontal={100} paddingVertical={20} borderRadius={10}>
           <Text color="white">Deskripsi Surat</Text>
         </Box>
       </Center>

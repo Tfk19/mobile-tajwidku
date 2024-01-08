@@ -7,7 +7,7 @@ import { database } from '../src/config/FIREBASE';
 import audio from '../assets/music1.mp3';
 import React, { useState, useEffect, useCallback } from 'react';
 import { getData } from '../src/utils';
-const Soal5 = () => {
+const Soal6 = () => {
   const navigation = useNavigation();
   const [pertanyaan, pertanyaans] = useState(0);
   const [skor, skors] = useState(0);
@@ -98,7 +98,7 @@ const Soal5 = () => {
       const user = profile?.nama;
       const scoreData = {
         score: skor,
-        soal: 'Ikhfa Haqiqi',
+        soal: 'Idgham Mimi',
         users: user,
       };
 
@@ -171,6 +171,7 @@ const Soal5 = () => {
         {!hasil ? (
           <View>
             <Text
+            marginTop={20}
               alignSelf={"center"}
               fontSize={18}
               fontWeight={'bold'}
@@ -277,4 +278,4 @@ const Soal5 = () => {
   );
 };
 
-export default Soal5;
+export default Soal6;

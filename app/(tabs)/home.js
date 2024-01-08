@@ -3,6 +3,7 @@ import { Center, Heading, Box, HStack, ScrollView, Text } from "@gluestack-ui/th
 import { Link } from "expo-router";
 import { View, Image } from "react-native";
 import { Header } from "../../components";
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Home = () => {
   const Headers = () => {
@@ -243,6 +244,11 @@ const Home = () => {
           <Boxes />
         </View>
       </Center>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+      <TouchableOpacity>
+        
+      </TouchableOpacity>
+      </ScrollView>
     </ScrollView>
   );
 };

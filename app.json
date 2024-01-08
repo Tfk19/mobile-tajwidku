@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "networking",
-    "slug": "networking",
+    "name": "Tajwidku",
+    "slug": "Tajwidku",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.tfk19.Tajwidku"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -29,7 +30,14 @@
     "plugins": [
       "expo-router"
     ],
-    "scheme": "my-scheme"
-    
+    "scheme": "my-scheme",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "411f5a2d-97c0-49de-b3cf-a0271935776b"
+      }
+    }
   }
 }
