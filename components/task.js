@@ -6,7 +6,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 const Task = (props) => {
   const { data, onChecked, onDeleted, deletedIcon, onItemPress } = props;
   return (
-    <Box bg='teal' padding={15} borderRadius={10} flexDirection='row' alignItems='center' justifyContent='space-between' marginBottom={20}>
+    <Box marginHorizontal={15} bg='teal' padding={15} borderRadius={10} flexDirection='row' alignItems='center' justifyContent='space-between' marginBottom={20}>
       <View style={{flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap'}}>
         <Checkbox 
         value={data.title} 

@@ -3,7 +3,7 @@ import { Redirect } from 'expo-router';
 
 
 const Root = () => {
-  return <Redirect href="/home" />;
+  return <Redirect href="/LoginScreen" />;
 };
 
 export default Root;

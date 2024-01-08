@@ -40,7 +40,7 @@ const Header = ({ title, withBack = false, withClose = false }) => {
             )}
           </HStack>
           <HStack mt="$1" space={"2xl"}>
-          <Ionicons name="search" size={32} color={teal700} />
+          <Ionicons name="search" size={32} color={"transparent"} />
           </HStack>
         </HStack>
       </Box>

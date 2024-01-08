@@ -1,5 +1,5 @@
 {
-  "name": "networking",
+  "name": "tajwidku",
   "version": "1.0.0",
   "main": "expo-router/entry",
   "scripts": {
@@ -38,7 +38,7 @@
     "react-native-screens": "~3.22.0",
     "react-native-sound": "^0.11.2",
     "react-native-sound-player": "^0.13.2",
-    "react-native-svg": "^13.4.0",
+    "react-native-svg": "^13.14.0",
     "react-native-webview": "13.2.2"
   },
   "devDependencies": {

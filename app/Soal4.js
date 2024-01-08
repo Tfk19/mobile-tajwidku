@@ -171,6 +171,7 @@ const Soal4 = () => {
         {!hasil ? (
           <View>
             <Text
+            marginTop={20}
               alignSelf={"center"}
               fontSize={18}
               fontWeight={'bold'}
