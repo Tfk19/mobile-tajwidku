@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Box, Alert, FormControl, Heading, Text, Modal, ModalBackdrop, AlertText, Image, View } from "@gluestack-ui/themed";
+import React, { useState, useEffect } from "react";
+import { Box, Alert, FormControl, Text, Modal, ModalBackdrop, AlertText, Image, View } from "@gluestack-ui/themed";
 import { Input, Button } from "../components";
 import { useNavigation } from "@react-navigation/native";
-import { TextInput } from "react-native";
 import { loginUser } from "./auth/authFunction"; // Replace with your actual auth function
 import { TouchableOpacity } from "react-native-gesture-handler";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = () => {
   const navigation = useNavigation();
@@ -23,7 +23,13 @@ const Login = () => {
       if (email && password) {
         // Call your authentication function
         const user = await loginUser(email, password);
-        navigation.replace('(tabs)', { screen: 'home' });
+
+        if (user) {
+          await AsyncStorage.setItem("isLoggedIn", "true");
+          navigation.replace('(tabs)', { screen: 'home' });
+        } else {
+          toggleAlert("Authentication failed");
+        }
       } else {
         toggleAlert("Please enter both email and password.");
       }
@@ -33,21 +39,37 @@ const Login = () => {
     }
   };
 
+  useEffect(() => {
+    checkLoginStatus();
+  }, []);
+
+  const checkLoginStatus = async () => {
+    try {
+      const isLoggedIn = await AsyncStorage.getItem("isLoggedIn");
+
+      if (isLoggedIn === "true") {
+        navigation.replace('(tabs)', { screen: 'home' });
+      }
+    } catch (error) {
+      console.error("Error checking login status:", error);
+    }
+  };
+
   return (
     <Box flex={1} backgroundColor="$white" justifyContent="center">
       <View backgroundColor="$white" justifyContent="center" alignItems="center">
-      <Image
-        source={require("../assets/logoo.png")}
-        alignItems="center"
-        w="$50%"
-        h="$60%"
-        p={0}
-        mt={-100}
-        mb={-170}
-        alt="Tajwidku Logo"
-        resizeMode="contain"
-        role="img"
-      />
+        <Image
+          source={require("../assets/logoo.png")}
+          alignItems="center"
+          w="$50%"
+          h="$60%"
+          p={0}
+          mt={-100}
+          mb={-170}
+          alt="Tajwidku Logo"
+          resizeMode="contain"
+          role="img"
+        />
       </View>
       <Box
         shadowColor="$black"
@@ -75,24 +97,23 @@ const Login = () => {
         </FormControl>
         <Box flexDirection="column" my="$5">
           <TouchableOpacity>
-          <Button title="Login" type="text" padding="$3" onPress={login} backgroundColor="$teal"/>
+            <Button title="Login" type="text" padding="$3" onPress={login} backgroundColor="$teal"/>
           </TouchableOpacity>
           <Text size="sm" color="$black" mt="$4">
             Don't have an account?
           </Text>
           <TouchableOpacity>
-          <Button
-            title="Register"
-            backgroundColor="$teal"
-            type="text"
-            color="teal"
-            padding="$3"
-            onPress={() => {
-              navigation.replace("RegisterScreen");
-            }}
-          />
+            <Button
+              title="Register"
+              backgroundColor="$teal"
+              type="text"
+              color="teal"
+              padding="$3"
+              onPress={() => {
+                navigation.replace("RegisterScreen");
+              }}
+            />
           </TouchableOpacity>
-         
         </Box>
       </Box>
 

@@ -7,7 +7,7 @@ import { Header } from '../components';
 import { ScrollView } from 'react-native-gesture-handler';
 import { database } from "../src/config/FIREBASE";
 
-const skor = () => {
+const Skor = () => {
   const navigation = useNavigation();
   const [fadeAnim] = useState(new Animated.Value(1));
   const [profile, setProfile] = useState(null);
@@ -88,7 +88,7 @@ const skor = () => {
             />
           </View>
           <View>
-            <Box mt={10} mx={50} backgroundColor='teal' borderRadius={"$xl"}>
+            <Box mt={10} mx={50} backgroundColor='teal' borderRadius={"$md"} marginBottom={10}>
               <View p={"$4"}>
                 <Text fontSize={"$xl"}
                   textAlign={"left"}
@@ -101,22 +101,36 @@ const skor = () => {
               </View>
             </Box>
           </View>
-          <Box mx={50}>
+          <Box marginBottom={50} mx={50}>
             {scoreUser && scoreUser.length > 0 ? (
               scoreUser.map((item, index) => {
                 const percentage = Math.round((item.score / 3) * 100);
                 return (
-                  <Text key={index} color="$black" fontSize={"$xl"} mt={"$2"}>
-                    <Text>
-                      Berikut adalah hasil skor dari soal {item.soal} : <Text color='teal' bold>{percentage}</Text>
+                  <Box
+                    key={index}
+                    backgroundColor='teal'
+                    borderRadius={"$md"}
+                    p={"$2"}
+                    mt={"$2"}
+                  >
+                    <Text color={"white"} fontSize={"$xl"}>
+                      {`${index + 1}. Berikut adalah hasil skor dari soal ${item.soal} : `}
+                      <Text bold color='white'>{percentage}</Text>
                     </Text>
-                  </Text>
+                  </Box>
                 );
               })
             ) : (
-              <Text color="$black" fontSize={"$xl"} mt={"$2"}>
-                Anda belum mengerjakan quiz.
-              </Text>
+              <Box
+                backgroundColor='teal'
+                borderRadius={"$md"}
+                p={"$2"}
+                mt={"$2"}
+              >
+                <Text color={"white"} fontSize={"$xl"}>
+                  Anda belum mengerjakan quiz.
+                </Text>
+              </Box>
             )}
           </Box>
         </>
@@ -125,4 +139,4 @@ const skor = () => {
   );
 };
 
-export default skor;
+export default Skor;

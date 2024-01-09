@@ -49,7 +49,7 @@ const DeskripsiHadist = () => {
           
           <LottieView
             ref={animationRef}
-            source={require("../animasi.json")}
+            source={require("../animation.json")}
             autoPlay
             loop
           />

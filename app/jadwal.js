@@ -163,22 +163,22 @@ useEffect(() => {
             <Text color='white'>{`Imsyak: ${dataJadwal.imsak ? dataJadwal.imsak : "N/A"}`}</Text>
           </Box>
           <Box bg="$teal" p="$5" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
-            <Text color='white'>{`Shubuh: ${dataJadwal.subuh ? dataJadwal.subuh : "N/A"}`}</Text>
+            <Text color='white'>{`Shubuh : ${dataJadwal.subuh ? dataJadwal.subuh : "N/A"}`}</Text>
           </Box>
           <Box bg="$teal" p="$5" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
-            <Text color='white'>{`dhuha: ${dataJadwal.dhuha ? dataJadwal.dhuha : "N/A"}`}</Text>
+            <Text color='white'>{`Dhuha : ${dataJadwal.dhuha ? dataJadwal.dhuha : "N/A"}`}</Text>
           </Box>
           <Box bg="$teal" p="$5" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
-            <Text color='white'>{`dzuhur: ${dataJadwal.dzuhur ? dataJadwal.dzuhur : "N/A"}`}</Text>
+            <Text color='white'>{`Dzuhur : ${dataJadwal.dzuhur ? dataJadwal.dzuhur : "N/A"}`}</Text>
           </Box>
           <Box bg="$teal" p="$5" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
-            <Text color='white'>{`ashr: ${dataJadwal.ashar ? dataJadwal.ashar : "N/A"}`}</Text>
+            <Text color='white'>{`Ashr : ${dataJadwal.ashar ? dataJadwal.ashar : "N/A"}`}</Text>
           </Box>
           <Box bg="$teal" p="$5" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
-            <Text color='white'>{`magrib: ${dataJadwal.maghrib ? dataJadwal.maghrib : "N/A"}`}</Text>
+            <Text color='white'>{`Magrib : ${dataJadwal.maghrib ? dataJadwal.maghrib : "N/A"}`}</Text>
           </Box>
           <Box bg="$teal" p="$5" paddingHorizontal={10} w={350} mb="$3" rounded={"$md"}>
-            <Text color='white'>{`isya: ${dataJadwal.isya ? dataJadwal.isya : "N/A"}`}</Text>
+            <Text color='white'>{`Isya' : ${dataJadwal.isya ? dataJadwal.isya : "N/A"}`}</Text>
           </Box>
         </Pressable>
       </Box>
