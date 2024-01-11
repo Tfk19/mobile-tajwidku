@@ -8,6 +8,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "../components";
 import React, { useState, useEffect } from 'react';
 
+
 const noHead = { headerShown: false };
 
 const Doa = () => {
@@ -105,7 +106,25 @@ const Doa = () => {
         </Box>
       ) : (
         <>
+         <Box marginBottom={140}>
+        <LottieView
+          source={require('../doa.json')}
+          autoPlay
+          loop
+          width={150}
+          height={200}
+          marginHorizontal={10}
+          marginLeft={-80}
+          marginTop={-20}
+        />
+        </Box>
           <View style={{ height: 20 }} />
+          <Text color="$teal700" bottom="$2" px="$10" textAlign="center" sizes="$xl" bold>
+          وَقَالَ رَبُّكُمُ ادْعُوْنِيْٓ اَسْتَجِبْ لَكُمْ ۗاِنَّ الَّذِيْنَ يَسْتَكْبِرُوْنَ عَنْ عِبَادَتِيْ سَيَدْخُلُوْنَ جَهَنَّمَ دَاخِرِيْنَ        
+        </Text>
+        <Text mt={10} color="$teal700" bottom="$2" px="$10" textAlign="justify" fontSize={15}>
+        Artinya:“berdoalah kepada-Ku, niscaya akan Kuperkenankan bagimu. Sesungguhnya orang-orang yang menyombongkan diri dari menyembah-Ku akan masuk Neraka Jahannam dalam keadaan hina dina”. (QS. Al-Mukmin: 60).
+        </Text>
           <FlatList
             data={datas}
             renderItem={renderItem}

@@ -105,8 +105,9 @@ const surah = () => {
         </Box>
       ) : (
         <>
-          <View style={{ height: 20 }} />
+          <View height= {20} />
           <FlatList
+          marginBottom={50}
             data={datas}
             renderItem={renderItem}
             keyExtractor={(item) => item.id.toString()}

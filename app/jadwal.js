@@ -206,11 +206,22 @@ useEffect(() => {
   return (
     <ScrollView>
       <Header withBack={true} title={"Home"} />
-
       <Center>
         <Headers />
         <View />
-        <Heading color="$teal800" py="$4" >
+        <Box marginBottom={70}>
+        <LottieView
+          source={require('../masjid.json')}
+          autoPlay
+          loop
+          width={200}
+          height={200}
+          marginHorizontal={10}
+          marginLeft={-100}
+          marginTop={-50}
+        />
+        </Box>
+        <Heading color="$teal800" marginTop={10} py="$4" >
           KOTA SURABAYA
         </Heading>
         <Text color="$teal700" bottom="$2" px="$10" textAlign="center" sizes="6xl" bold>
