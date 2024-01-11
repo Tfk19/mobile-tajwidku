@@ -4,6 +4,7 @@ import { View, Image, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "../../components";
 import { useNavigation } from '@react-navigation/native';
+import LottieView from 'lottie-react-native';
 
 const Materi = () => {
   const navigation = useNavigation();
@@ -75,19 +76,33 @@ const Materi = () => {
         <View>
           <Headers />
         </View>
-        <Heading color="$teal800" py="$4" >
+        <Box marginBottom={70}>
+        <LottieView
+          source={require('../../buku.json')}
+          autoPlay
+          loop
+          width={200}
+          height={200}
+          marginHorizontal={10}
+          marginLeft={-100}
+          marginTop={-50}
+        />
+        </Box>
+         <Text size='xl' bold color="$teal800" py="$4" >
           خيركم من تعلّم القران و علّمه
-        </Heading>
+        </Text>
         <Text color="$teal700" bottom="$2" px="$10" textAlign="center" sizes="6xl" >
           “Sebaik-baiknya diantara kamu adalah
           orang yang belajar Al-Qur’an dan
           Mengajarkannya”
         </Text>
-        <View top={10} marginBottom={10}>
-          <Text fontSize={20} bold color="$teal">
+        <View marginTop= {20} marginLeft= {0} flexDirection= 'row' alignItems= 'center'>
+        <Box backgroundColor='teal' borderRadius={5} >
+          <Text bold size='l' color='white' padding={10} marginRight={100}>
             Hukum Nun Sukun
           </Text>
-        </View>
+        </Box>
+      </View>
         <View>
           <HStack space="xl" alignItems="center" py="$5">
           <View w="100%">
@@ -214,11 +229,13 @@ const Materi = () => {
             </View>
           </HStack>
         </View>
-        <View top={10} marginBottom={10}>
-          <Text fontSize={20} bold color="$teal">
+        <View marginTop= {10} marginLeft= {0} flexDirection= 'row' alignItems= 'center'>
+        <Box backgroundColor='teal' borderRadius={5} >
+          <Text bold size='l' color='white' padding={10} marginRight={100}>
             Hukum Mim Sukun
           </Text>
-        </View>
+        </Box>
+      </View>
         <View>
           <HStack space="xl" alignItems="center" py="$5">
             <View w="100%">

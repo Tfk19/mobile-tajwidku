@@ -4,50 +4,57 @@ import { Link } from "expo-router";
 import { View, Image } from "react-native";
 import { Header } from "../../components";
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
+import LottieView from 'lottie-react-native';
+
 
 const Home = () => {
+  const navigation = useNavigation();
+  const handleNavigation = (route) => {
+    navigation.navigate(route);
+  };
   const Headers = () => {
     const [currentTime, setCurrentTime] = useState(new Date());
-  
+
     useEffect(() => {
       const intervalId = setInterval(() => {
         setCurrentTime(new Date());
       }, 1000);
-  
+
       return () => clearInterval(intervalId);
     }, []);
-  
+
     const formattedTime = currentTime.toLocaleTimeString();
     const options = { day: 'numeric', month: 'long', year: 'numeric' };
     const formattedDate = currentTime.toLocaleDateString(undefined, options);
-  
+
     return (
       <View w="100%">
         <Link
           href={{
             pathname: 'home',
           }}>
-<Box rounded="$xl" alignItems="center" w="$50" bg="teal" flex={1}>
-  <Box
-    position="relative"
-    alignItems="center"
-    justifyContent="center"
-    flex={1}>
-    <Image
-      resizeMode="contain"
-      role="img"
-      source={require('../../assets/Frame1.png')}
-    />
-    <Box flexDirection="column" alignItems="center" justifyContent="center" position="absolute">
-      <Heading fontSize={40} paddingTop={20} textAlign="center" color="$white">
-        {formattedTime}
-      </Heading>
-      <Text fontSize={16} textAlign="center" color="$white">
-        {formattedDate}
-      </Text>
-    </Box>
-  </Box>
-</Box>
+          <Box rounded="$xl" alignItems="center" w="$50" bg="teal" flex={1}>
+            <Box
+              position="relative"
+              alignItems="center"
+              justifyContent="center"
+              flex={1}>
+              <Image
+                resizeMode="contain"
+                role="img"
+                source={require('../../assets/Frame1.png')}
+              />
+              <Box flexDirection="column" alignItems="center" justifyContent="center" position="absolute">
+                <Heading fontSize={40} paddingTop={20} textAlign="center" color="$white">
+                  {formattedTime}
+                </Heading>
+                <Text fontSize={16} textAlign="center" color="$white">
+                  {formattedDate}
+                </Text>
+              </Box>
+            </Box>
+          </Box>
         </Link>
       </View>
     );
@@ -232,22 +239,246 @@ const Home = () => {
         <View>
           <Headers />
         </View>
-        <Heading color="$teal800" py="$4" >
-          خيركم من تعلّم القران و علّمه
-        </Heading>
-        <Text color="$teal700" bottom="$2" px="$10" textAlign="center" sizes="6xl" >
-          “Sebaik-baiknya diantara kamu adalah
-          orang yang belajar Al-Qur’an dan
-          Mengajarkannya”
+        
+        <Box marginBottom={10}>
+        <LottieView
+          source={require('../../waktu.json')}
+          autoPlay
+          loop
+          width={120}
+          height={120}
+          marginHorizontal={10}
+          marginLeft={-160}
+          marginTop={0}
+        />
+        </Box>
+         <Text paddingLeft={150} size='xl' bold color="$teal800" py="$4" >
+          الوقت أثمن من الذهب
         </Text>
-        <View>
+        <Text paddingLeft={180} color="$teal700" bottom="$4" px="$10" textAlign="right" sizes="6xl" >
+          “ًWaktu Lebih Berharga Daripada Emas”
+        </Text>
+        <View marginTop={-10}>
           <Boxes />
         </View>
       </Center>
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-      <TouchableOpacity>
-        
-      </TouchableOpacity>
+      <View marginTop= {20} marginLeft= {40} flexDirection= 'row' alignItems= 'center'>
+        <Box backgroundColor='teal' borderRadius={5} >
+          <Text bold size='l' color='white' padding={10} marginRight={100}>
+            Materi Tajwid
+          </Text>
+        </Box>
+        <TouchableOpacity onPress={() => handleNavigation('materi')} >
+          <Text color= 'teal' marginLeft={40} >See More</Text>
+        </TouchableOpacity>
+      </View>
+      <ScrollView marginRight={40} horizontal showsHorizontalScrollIndicator={false}>
+        <Box marginHorizontal={40} marginVertical={20} marginBottom={80} flexDirection="row">
+          <TouchableOpacity onPress={() => handleNavigation('Materi1')}>
+            <Box
+              position="relative"
+              borderRadius={10}
+              width={120}
+              height={100}
+              backgroundColor="teal"
+              marginRight={10}
+              justifyContent="center"
+              alignItems="center"
+              overflow="hidden"
+            >
+              <Image
+                resizeMode="contain"
+                source={require('../../assets/Frame3.png')}
+              />
+              <Text position="absolute" color="white">Idzhar Halqi</Text>
+            </Box>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleNavigation('Materi2')}>
+            <Box
+              position="relative"
+              borderRadius={10}
+              width={120}
+              height={100}
+              backgroundColor="teal"
+              marginRight={10}
+              justifyContent="center"
+              alignItems="center"
+              overflow="hidden"
+            >
+              <Image
+                resizeMode="contain"
+                source={require('../../assets/Frame3.png')}
+              />
+              <Text position="absolute" color="white">Idgham Bi Ghunnah</Text>
+            </Box>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleNavigation('Materi3')}>
+            <Box
+              position="relative"
+              borderRadius={10}
+              width={120}
+              height={100}
+              backgroundColor="teal"
+              marginRight={10}
+              justifyContent="center"
+              alignItems="center"
+              overflow="hidden"
+            >
+              <Image
+                resizeMode="contain"
+                source={require('../../assets/Frame3.png')}
+              />
+              <Text position="absolute" color="white">Idgham Bila Ghunnah</Text>
+            </Box>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleNavigation('Materi4')}>
+            <Box
+              position="relative"
+              borderRadius={10}
+              width={120}
+              height={100}
+              backgroundColor="teal"
+              marginRight={10}
+              justifyContent="center"
+              alignItems="center"
+              overflow="hidden"
+            >
+              <Image
+                resizeMode="contain"
+                source={require('../../assets/Frame3.png')}
+              />
+              <Text position="absolute" color="white">Iqlab</Text>
+            </Box>
+          </TouchableOpacity>
+             <TouchableOpacity onPress={() => handleNavigation('Materi5')}>
+            <Box
+              position="relative"
+              borderRadius={10}
+              width={120}
+              height={100}
+              backgroundColor="teal"
+              marginRight={10}
+              justifyContent="center"
+              alignItems="center"
+              overflow="hidden"
+            >
+              <Image
+                resizeMode="contain"
+                source={require('../../assets/Frame3.png')}
+              />
+              <Text position="absolute" color="white">Ikhfa Haqiqi</Text>
+            </Box>
+          </TouchableOpacity>
+        </Box>
+      </ScrollView>
+      <View marginTop= {-50} marginLeft= {40} flexDirection= 'row' alignItems= 'center'>
+        <Box backgroundColor='teal' borderRadius={5} >
+          <Text bold size='l' color='white' padding={10} marginRight={110}>
+            Quiz Tajwid
+          </Text>
+        </Box>
+        <TouchableOpacity onPress={() => handleNavigation('quiz')} >
+          <Text color= 'teal' marginLeft={40} >See More</Text>
+        </TouchableOpacity>
+      </View>
+      <ScrollView marginRight={40} horizontal showsHorizontalScrollIndicator={false}>
+        <Box marginHorizontal={40} marginVertical={20} marginBottom={80} flexDirection="row">
+          <TouchableOpacity onPress={() => handleNavigation('Soal1')}>
+            <Box
+              position="relative"
+              borderRadius={10}
+              width={120}
+              height={100}
+              backgroundColor="teal"
+              marginRight={10}
+              justifyContent="center"
+              alignItems="center"
+              overflow="hidden"
+            >
+              <Image
+                resizeMode="contain"
+                source={require('../../assets/Frame3.png')}
+              />
+              <Text position="absolute" color="white">Idzhar Halqi</Text>
+            </Box>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleNavigation('Soal2')}>
+            <Box
+              position="relative"
+              borderRadius={10}
+              width={120}
+              height={100}
+              backgroundColor="teal"
+              marginRight={10}
+              justifyContent="center"
+              alignItems="center"
+              overflow="hidden"
+            >
+              <Image
+                resizeMode="contain"
+                source={require('../../assets/Frame3.png')}
+              />
+              <Text position="absolute" color="white">Idgham Bi Ghunnah</Text>
+            </Box>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleNavigation('Soal3')}>
+            <Box
+              position="relative"
+              borderRadius={10}
+              width={120}
+              height={100}
+              backgroundColor="teal"
+              marginRight={10}
+              justifyContent="center"
+              alignItems="center"
+              overflow="hidden"
+            >
+              <Image
+                resizeMode="contain"
+                source={require('../../assets/Frame3.png')}
+              />
+              <Text position="absolute" color="white">Idgham Bila Ghunnah</Text>
+            </Box>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleNavigation('Soal4')}>
+            <Box
+              position="relative"
+              borderRadius={10}
+              width={120}
+              height={100}
+              backgroundColor="teal"
+              marginRight={10}
+              justifyContent="center"
+              alignItems="center"
+              overflow="hidden"
+            >
+              <Image
+                resizeMode="contain"
+                source={require('../../assets/Frame3.png')}
+              />
+              <Text position="absolute" color="white">Iqlab</Text>
+            </Box>
+          </TouchableOpacity>
+             <TouchableOpacity onPress={() => handleNavigation('Soal5')}>
+            <Box
+              position="relative"
+              borderRadius={10}
+              width={120}
+              height={100}
+              backgroundColor="teal"
+              marginRight={10}
+              justifyContent="center"
+              alignItems="center"
+              overflow="hidden"
+            >
+              <Image
+                resizeMode="contain"
+                source={require('../../assets/Frame3.png')}
+              />
+              <Text position="absolute" color="white">Ikhfa Haqiqi</Text>
+            </Box>
+          </TouchableOpacity>
+        </Box>
       </ScrollView>
     </ScrollView>
   );
