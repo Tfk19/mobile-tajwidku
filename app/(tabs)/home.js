@@ -27,7 +27,7 @@ const Home = () => {
           href={{
             pathname: 'home',
           }}>
-<Box rounded="$xl" alignItems="center" w="$50" bg="green" flex={1}>
+<Box rounded="$xl" alignItems="center" w="$50" bg="teal" flex={1}>
   <Box
     position="relative"
     alignItems="center"
@@ -232,10 +232,10 @@ const Home = () => {
         <View>
           <Headers />
         </View>
-        <Heading color="$green800" py="$4" >
+        <Heading color="$teal800" py="$4" >
           خيركم من تعلّم القران و علّمه
         </Heading>
-        <Text color="$green700" bottom="$2" px="$10" textAlign="center" sizes="6xl" >
+        <Text color="$teal700" bottom="$2" px="$10" textAlign="center" sizes="6xl" >
           “Sebaik-baiknya diantara kamu adalah
           orang yang belajar Al-Qur’an dan
           Mengajarkannya”

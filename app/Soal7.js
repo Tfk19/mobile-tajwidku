@@ -1,13 +1,15 @@
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Center, Heading, Box, View, Text, ScrollView } from "@gluestack-ui/themed";
-import {TouchableOpacity, Image } from 'react-native';
+import { Center, Box, Text } from '@gluestack-ui/themed';
 import { Header } from '../components';
 import { Audio } from 'expo-av';
 import { database } from '../src/config/FIREBASE';
 import audio from '../assets/music1.mp3';
-import React, { useState, useEffect, useCallback } from 'react';
 import { getData } from '../src/utils';
-const Soal7 = () => {
+
+
+const soal7 = () => {
   const navigation = useNavigation();
   const [pertanyaan, pertanyaans] = useState(0);
   const [skor, skors] = useState(0);
@@ -15,13 +17,14 @@ const Soal7 = () => {
   const [sound, setSound] = useState();
   const [questions, setQuestions] = useState({});
   const [userAnswer, setUserAnswer] = useState(null);
+  const [testScore, setTestScore] = useState("");
   const [profile, setProfile] = useState(null);
-  
+  const [sisaWaktu, setsisaWaktu] = useState(10);
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const snapshot = await database.ref('soal7').once('value'); // Change 'questions' to 'soal1'
+        const snapshot = await database.ref('soal7').once('value'); // Change 'questions' to 'soal7'
         const questionsData = snapshot.val();
 
         if (questionsData) {
@@ -69,6 +72,21 @@ const Soal7 = () => {
     };
   }, []);
 
+  useEffect(() => {
+    let timer;
+    if (!hasil && sisaWaktu > 0) {
+      timer = setTimeout(() => {
+        setsisaWaktu((prevsisaWaktu) => prevsisaWaktu - 1);
+      }, 1000);
+    } else if (!hasil && sisaWaktu === 0) {
+      // Time is up, handle it accordingly (e.g., mark the question as unanswered)
+      setUserAnswer('unanswered');
+      showNextQuestion();
+    }
+
+    return () => clearTimeout(timer);
+  }, [sisaWaktu, hasil]);
+
   const handleAnswer = (selectedOptionIndex) => {
     if (userAnswer) {
       // User has already answered, do nothing
@@ -87,12 +105,15 @@ const Soal7 = () => {
 
     setUserAnswer(correctOptionIndex === selectedOptionIndex ? 'correct' : 'wrong');
   };
+  console.log(profile?.nama)
 
   const showNextQuestion = () => {
     setUserAnswer(null);
+    setsisaWaktu(10);
     if (pertanyaan < Object.keys(questions).length - 1) {
       pertanyaans(pertanyaan + 1);
     } else {
+
       hasils(true);
 
       const user = profile?.nama;
@@ -112,93 +133,138 @@ const Soal7 = () => {
     skors(0);
     hasils(false);
     setUserAnswer(null);
+    setsisaWaktu(10);
     if (sound) {
       sound.stopAsync();
     }
   };
 
-  const navigateToSoal1 = () => {
+  const navigateTosoal7 = () => {
     navigation.navigate('quiz');
     if (sound) {
       sound.stopAsync();
     }
   };
 
-  const getColorForOption = useCallback(
-    (optionIndex) => {
-      const { jawabanBenar } = questions[pertanyaan] || {};
+  const getColorForOption = (optionIndex) => {
+    const { jawabanBenar } = questions[pertanyaan] || {};
 
-      if (userAnswer === 'correct' && optionIndex === parseInt(jawabanBenar)) {
-        return 'green';
-      } else if (userAnswer === 'wrong' && optionIndex === parseInt(jawabanBenar)) {
-        return 'green'; // Correct answer is in teal when the user answers incorrectly
-      } else if (userAnswer === 'correct' || userAnswer === 'wrong') {
-        return optionIndex === parseInt(jawabanBenar) ? 'green' : 'red'; // User's correct answer is in green, and correct answer is in red
-      } else {
-        return '#0F766E'; // Default color
-      }
-    },
-    [questions, pertanyaan, userAnswer]
-  );
+    if (userAnswer === 'correct' && optionIndex === parseInt(jawabanBenar)) {
+      return 'teal';
+    } else if (userAnswer === 'wrong' && optionIndex === parseInt(jawabanBenar)) {
+      return 'teal'; // Correct answer is in teal when the user answers incorrectly
+    } else if (userAnswer === 'correct' || userAnswer === 'wrong') {
+      return optionIndex === parseInt(jawabanBenar) ? 'teal' : 'red'; // User's correct answer is in teal, and correct answer is in red
+    } else {
+      return '#0F766E'; // Default color
+    }
+  };
 
   return (
     <>
-     <ScrollView>
-      <Header withBack={true} title="quiz" />
-      <View
-        flex={1}
-        justifyContent={'top'}
-        alignItems={'center'}
-        paddingHorizontal={20}
-      >
-        <Image
+      <ScrollView>
+        <Header withBack={true} title="quiz" />
+        <View
           flex={1}
-          w={1}
-          h={1}
-          source={require('../assets/quizs.png')}
-          role="img"
-          alignSelf="center"
-          alt='img'
-          resizeMode="contain"
-        />
-      </View>
-      <View
-        flex={1}
-        justifyContent={'top'}
-        alignItems={'center'}
-        paddingHorizontal={20}
-      >
-        {!hasil ? (
-          <View>
-            <Text
-            marginTop={20}
-              alignSelf={"center"}
-              fontSize={18}
-              fontWeight={'bold'}
-              marginBottom={20}
-            >
-              {questions[pertanyaan]?.question}
-            </Text>
-            {Object.values(questions[pertanyaan]?.options || {}).map((option, index) => (
-              <TouchableOpacity
-                key={index}
-                onPress={() => handleAnswer(index + 1)}  // Pass the option index (starting from 1)
+          justifyContent={'top'}
+          alignItems={'center'}
+          paddingHorizontal={20}
+        >
+          <Image
+            flex={1}
+            w={1}
+            h={1}
+            source={require('../assets/quizs.png')}
+            role="img"
+            alignSelf="center"
+            alt='img'
+            resizeMode="contain"
+          />
+        </View>
+        <View
+          flex={1}
+          justifyContent={'top'}
+          alignItems={'center'}
+          paddingHorizontal={20}
+        >
+          {!hasil ? (
+            <View>
+              <Text
+                marginTop={20}
+                alignSelf={"center"}
+                fontSize={18}
+                fontWeight={'bold'}
+                marginBottom={20}
               >
-                <View
-                  backgroundColor={getColorForOption(index + 1)}
-                  padding={10}
-                  marginVertical={5}
-                  borderRadius={5}
+                {questions[pertanyaan]?.question}
+              </Text>
+              {Object.values(questions[pertanyaan]?.options || {}).map((option, index) => (
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => handleAnswer(index + 1)}  // Pass the option index (starting from 1)
                 >
-                  <Text
-                    color={'#fff'}
-                    fontSize={16}
-                  >{option}</Text>
-                </View>
-              </TouchableOpacity>
-            ))}
-            {userAnswer && (
-              <TouchableOpacity onPress={showNextQuestion}>
+                  <View
+                    backgroundColor={getColorForOption(index + 1)}
+                    padding={10}
+                    marginVertical={5}
+                    borderRadius={5}
+                  >
+                    <Text
+                      color={'#fff'}
+                      fontSize={16}
+                    >{option}</Text>
+                  </View>
+                </TouchableOpacity>
+              ))}
+              {userAnswer && (
+                <TouchableOpacity onPress={showNextQuestion}>
+                  <View
+                    marginTop={10}
+                    backgroundColor={'#0F766E'}
+                    paddingTop={10}
+                    paddingBottom={10}
+                    borderRadius={5}
+                  >
+                    <Text
+                      justifyContent={'center'}
+                      alignItems={'center'}
+                      textAlign={'center'}
+                      marginTop={0}
+                      color={'#fff'}
+                      fontSize={16}
+                    >Next Question</Text>
+                  </View>
+                </TouchableOpacity>
+              )}
+  
+              {/* Display the timer only if the user hasn't answered */}
+              {!userAnswer && (
+                <Text
+                  alignSelf={"center"}
+                  fontSize={18}
+                  marginTop={20}
+                >
+                  {`Waktu Tersisa: ${sisaWaktu} Detik`}
+                </Text>
+              )}
+            </View>
+          ) : (
+            <View>
+              <Text
+                alignSelf={'center'}
+                fontSize={24}
+                justifyContent={'center'}
+                fontWeight={'bold'}
+                marginBottom={5}
+                padding={5}
+                marginTop={15}
+              >Hasil Quiz</Text>
+              <Text
+                justifyContent={'center'}
+                fontSize={18}
+                marginBottom={5}
+              >{`Skor Anda: ${Math.round((skor / Object.keys(questions).length) * 100)}`}</Text>
+              <TouchableOpacity onPress={resetQuiz}>
                 <View
                   marginTop={10}
                   backgroundColor={'#0F766E'}
@@ -213,69 +279,33 @@ const Soal7 = () => {
                     marginTop={0}
                     color={'#fff'}
                     fontSize={16}
-                  >Next Question</Text>
+                  >Ulangi Quiz</Text>
                 </View>
               </TouchableOpacity>
-            )}
-          </View>
-        ) : (
-          <View>
-            <Text
-              alignSelf={'center'}
-              fontSize={24}
-              justifyContent={'center'}
-              fontWeight={'bold'}
-              marginBottom={5}
-              padding={5}
-              marginTop={15}
-            >Hasil Quiz</Text>
-            <Text
-              justifyContent={'center'}
-              fontSize={18}
-              marginBottom={5}
-            >{`Skor Anda: ${Math.round((skor / Object.keys(questions).length) * 100)}`}</Text>
-            <TouchableOpacity onPress={resetQuiz}>
-              <View
-                marginTop={10}
-                backgroundColor={'#0F766E'}
-                paddingTop={10}
-                paddingBottom={10}
-                borderRadius={5}
-              >
-                <Text
-                  justifyContent={'center'}
-                  alignItems={'center'}
-                  textAlign={'center'}
-                  marginTop={0}
-                  color={'#fff'}
-                  fontSize={16}
-                >Ulangi Quiz</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={navigateToSoal1}>
-              <View
-                marginTop={10}
-                backgroundColor={'#0F766E'}
-                paddingTop={10}
-                paddingBottom={10}
-                borderRadius={5}
-              >
-                <Text
-                  justifyContent={'center'}
-                  alignItems={'center'}
-                  textAlign={'center'}
-                  marginTop={0}
-                  color={'#fff'}
-                  fontSize={16}
-                >Ke Menu Home</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        )}
-      </View>
+              <TouchableOpacity onPress={navigateTosoal7}>
+                <View
+                  marginTop={10}
+                  backgroundColor={'#0F766E'}
+                  paddingTop={10}
+                  paddingBottom={10}
+                  borderRadius={5}
+                >
+                  <Text
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    textAlign={'center'}
+                    marginTop={0}
+                    color={'#fff'}
+                    fontSize={16}
+                  >Ke Menu Home</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
       </ScrollView>
     </>
   );
 };
 
-export default Soal7;
+export default soal7;

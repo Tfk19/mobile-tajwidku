@@ -5,6 +5,7 @@ import { config } from "@gluestack-ui/config";
 import { View,Image, TouchableOpacity, Pressable, FlatList, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import  Header  from "../components/header";
+import LottieView from 'lottie-react-native';
 import { useRoute, useLocalSearchParams } from 'expo-router';
 import React, { useState, useEffect } from 'react';
 
@@ -17,16 +18,23 @@ const deskripsi = () => {
 
   const [deskripsi, setDeskripsi] = useState([])
   const [selectedChapter, setSelectedChapter] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    const fetchData = () => {
-        fetch("https://api.quran.com/api/v3/chapters")
-          .then((response) => response.json())
-          .then((data) => {
-            setDeskripsi(data.chapters);
-            // ini dengan function setSelectedChapter diisi dengaan filter 
-          })
-          .catch((err) => console.log(err));
-    };    
+
+  const fetchData = () => {
+    setLoading(true); // Set loading to true when starting the fetch
+  
+    fetch("https://api.quran.com/api/v3/chapters")
+      .then((response) => response.json())
+      .then((data) => {
+        setDeskripsi(data.chapters);
+        setLoading(false); // Set loading to false when data is fetched
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false); // Set loading to false on error
+      });
+  }; 
     
 
   useEffect(() => {
@@ -40,9 +48,21 @@ const deskripsi = () => {
     const chapter = deskripsi.find((item) => item.id === Number(params.id));
     setSelectedChapter(chapter);
   }, [params.id, deskripsi]);
-  
+  if (loading) {
+    return (
+      <Center flex={1} alignItems="center" justifyContent="center">
+        <Box width="70%" aspectRatio={1} overflow="hidden" borderRadius={16}>
+          <LottieView 
+            source={require('../animation.json')}
+            autoPlay
+            loop
+            resizeMode="cover"
+          />
+        </Box>
+      </Center>
+    );
+  }
   console.log(selectedChapter)
-
   if (!selectedChapter) {
     return (
       <Center>

@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { Center, Box, Text, Heading } from '@gluestack-ui/themed';
 import LottieView from 'lottie-react-native';
-import animationData from '../animasi.json';
 import Header from '../components/header';
 
 const DeskripsiHadist = () => {
   const params = useLocalSearchParams();
   const [deskripsi, setDeskripsi] = useState([]);
-  const [loadingAnimation, setLoadingAnimation] = useState(true);
+  const [loading, setLoading] = useState(true);
   const animationRef = useRef(null);
 
   const fetchData = () => {
+    setLoading(true); // Set loading to true before making the API call
+  
     fetch(`https://api.hadith.gading.dev/books/${params.id}?range=1-50`)
       .then((response) => {
         if (!response.ok) {
@@ -28,7 +29,7 @@ const DeskripsiHadist = () => {
         }
       })
       .catch((error) => console.error('Error fetching data:', error))
-      .finally(() => setLoadingAnimation(false));
+      .finally(() => setLoading(false)); // Set loading to false after the API call is complete
   };
 
   useEffect(() => {
@@ -42,17 +43,29 @@ const DeskripsiHadist = () => {
   }, [animationRef.current]);
 
   const Content = () => {
-    if (deskripsi.length === 0) {
+    console.log("Content component rendered");
+
+    if (loading) {
       return (
-        <Center>
-          {/* Display the Lottie animation while loading */}
-          
-          <LottieView
-            ref={animationRef}
-            source={require("../animasi.json")}
-            autoPlay
-            loop
-          />
+        <Center flex={1}>
+          <Box
+            mt="50%"
+            width="70%"
+            aspectRatio={1}
+            overflow="hidden"
+            borderRadius={16}
+            alignItems="center"
+            justifyContent="center"
+            alignSelf="center"  // Add this line
+          >
+            <LottieView 
+              // ref={animationRef}
+              source={require('../animation.json')}
+              autoPlay
+              loop
+              resizeMode="cover"
+            />
+          </Box>
         </Center>
       );
     }
@@ -66,7 +79,7 @@ const DeskripsiHadist = () => {
               <Box
                 bg="$teal"
                 marginTop={20}
-                mx={20}
+                mx={50}
                 p="$2"
                 paddingHorizontal={10}
                 w={350}
@@ -76,10 +89,10 @@ const DeskripsiHadist = () => {
                   Hadist ke- {item.number}
                 </Text>
               </Box>
-              <Heading marginTop={10} mx={20}>
+              <Heading marginTop={10} mx={50}>
                 {item.arab}
               </Heading>
-              <Text marginTop={10} textAlign="justify" mx={20}>
+              <Text marginTop={10} textAlign="justify" mx={50}>
                 Artinya: {item.id}
               </Text>
               {/* Add other elements here */}
@@ -95,28 +108,15 @@ const DeskripsiHadist = () => {
       {/* Headers */}
       <Header withBack={true} />
       {/* Headers End */}
-      <Center mt={20}>
-        <Box bg="$#27847D" paddingHorizontal={100} paddingVertical={20}>
-          <Text color="white">Hadist</Text>
-        </Box>
-      </Center>
+      {/* Lottie Animation */}
+      <View>
+
+      </View>
       {/* Content */}
       <Content />
       {/* Content End */}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  centeredText: {
-    textAlign: 'center',
-    textAlignVertical: 'center',
-  },
-});
 
 export default DeskripsiHadist;

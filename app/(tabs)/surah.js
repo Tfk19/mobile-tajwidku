@@ -3,7 +3,7 @@ import { Link, Stack } from "expo-router";
 import { GluestackUIProvider } from "@gluestack-ui/themed";
 import { config } from "@gluestack-ui/config";
 import { View,Image, TouchableOpacity, Pressable, FlatList } from "react-native";
-
+import LottieView from 'lottie-react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "../../components";
 import React, { useState, useEffect } from 'react';
@@ -13,17 +13,21 @@ const noHead = { headerShown: false };
 const surah = () => {
 
   const [datas, setDatas] = useState([])
+  const [loading, setLoading] = useState(true);
 
   const fetchData = () => {
-    fetch("https://api.quran.com/api/v3/chapters")
-    .then((response) => response.json())
-    .then((data) => {
-      setDatas(data.chapters);
-    }).catch ((err) => console.log(err));
-  };    
+    fetch('https://api.quran.com/api/v3/chapters')
+      .then((response) => response.json())
+      .then((data) => {
+        setDatas(data.chapters);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
+  };
+
   useEffect(() => {
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
 //   console.log(users)
 
@@ -86,19 +90,31 @@ const surah = () => {
   };
   return (
 
-      <ScrollView>
-        <Header title={"Home"}/>
-        <Center>
-          <Headers />
-          <View style={{ height:20 }} />
+    <ScrollView>
+    <Header title={'Home'} />
+    <Center>
+      <Headers />
+      {loading ? (
+        <Box width="70%" aspectRatio={1} overflow="hidden" borderRadius={16}>
+          <LottieView
+            source={require('../../animation.json')}
+            autoPlay
+            loop
+            resizeMode="cover"
+          />
+        </Box>
+      ) : (
+        <>
+          <View style={{ height: 20 }} />
           <FlatList
             data={datas}
             renderItem={renderItem}
             keyExtractor={(item) => item.id.toString()}
           />
-          {/* <Boxes/> */}
-        </Center>
-      </ScrollView>
+        </>
+      )}
+    </Center>
+  </ScrollView>
 
   );
 };
