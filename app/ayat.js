@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Center, Heading, Box, Text, ScrollView } from "@gluestack-ui/themed";
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { useLocalSearchParams } from 'expo-router';
 import LottieView from 'lottie-react-native'
 import { Header } from "../components";
@@ -33,20 +33,19 @@ const Ayat = () => {
 
   if (loading) {
     return (
-      <Center mt={50}>
-      <View>
-        <Text>Harusnya ada Lottie dibawah inii</Text>
-        <LottieView
-  style={{ width: 200, height: 200 }}
-  source={require('../Animations.json')}
-  autoPlay={true}
-  loop={true}
-/>
-      </View>
-    </Center>
+      <Center flex={1} alignItems="center" justifyContent="center">
+        <Box width="50%" aspectRatio={1} overflow="hidden" borderRadius={16}>
+          <LottieView 
+            source={require('../animation.json')}
+            autoPlay
+            loop
+            resizeMode="cover"
+          />
+        </Box>
+      </Center>
     );
   }
-
+  
   const Content = () => {
     return (
       <ScrollView>
@@ -61,8 +60,8 @@ const Ayat = () => {
                 <Box bg="$teal" p="$2" paddingHorizontal={10} w={350} rounded={"$md"}>
                   <Text fontSize={20} color="white"> Ayat ke- {(verse.nomorAyat)}</Text>
                 </Box>
-                <Text marginTop={10} bold fontSize={20}>{verse.teksArab}</Text>
-                <Text>"{verse.teksIndonesia}"</Text>
+                <Text textAlign="right" marginTop={10} bold fontSize={25} padding={10} lineHeight={30}>{verse.teksArab}</Text>
+                <Text textAlign="justify">"{verse.teksIndonesia}"</Text>
               </Box>
             ))}
           </Box>
@@ -74,17 +73,10 @@ const Ayat = () => {
   return (
     <View>
       <Center mt={20}>
-        <Content style={styles.centeredText} />
+        <Content  />
       </Center>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  centeredText: {
-    textAlign: 'center',
-    textAlignVertical: 'center',
-  },
-});
 
 export default Ayat;

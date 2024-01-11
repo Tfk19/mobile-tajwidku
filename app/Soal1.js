@@ -8,6 +8,7 @@ import { database } from '../src/config/FIREBASE';
 import audio from '../assets/music1.mp3';
 import { getData } from '../src/utils';
 
+
 const Soal1 = () => {
   const navigation = useNavigation();
   const [pertanyaan, pertanyaans] = useState(0);
@@ -18,6 +19,7 @@ const Soal1 = () => {
   const [userAnswer, setUserAnswer] = useState(null);
   const [testScore, setTestScore] = useState("");
   const [profile, setProfile] = useState(null);
+  const [sisaWaktu, setsisaWaktu] = useState(10);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -70,6 +72,21 @@ const Soal1 = () => {
     };
   }, []);
 
+  useEffect(() => {
+    let timer;
+    if (!hasil && sisaWaktu > 0) {
+      timer = setTimeout(() => {
+        setsisaWaktu((prevsisaWaktu) => prevsisaWaktu - 1);
+      }, 1000);
+    } else if (!hasil && sisaWaktu === 0) {
+      // Time is up, handle it accordingly (e.g., mark the question as unanswered)
+      setUserAnswer('unanswered');
+      showNextQuestion();
+    }
+
+    return () => clearTimeout(timer);
+  }, [sisaWaktu, hasil]);
+
   const handleAnswer = (selectedOptionIndex) => {
     if (userAnswer) {
       // User has already answered, do nothing
@@ -92,6 +109,7 @@ const Soal1 = () => {
 
   const showNextQuestion = () => {
     setUserAnswer(null);
+    setsisaWaktu(10);
     if (pertanyaan < Object.keys(questions).length - 1) {
       pertanyaans(pertanyaan + 1);
     } else {
@@ -115,6 +133,7 @@ const Soal1 = () => {
     skors(0);
     hasils(false);
     setUserAnswer(null);
+    setsisaWaktu(10);
     if (sound) {
       sound.stopAsync();
     }
@@ -131,11 +150,11 @@ const Soal1 = () => {
     const { jawabanBenar } = questions[pertanyaan] || {};
 
     if (userAnswer === 'correct' && optionIndex === parseInt(jawabanBenar)) {
-      return 'green';
+      return 'teal';
     } else if (userAnswer === 'wrong' && optionIndex === parseInt(jawabanBenar)) {
-      return 'green'; // Correct answer is in teal when the user answers incorrectly
+      return 'teal'; // Correct answer is in teal when the user answers incorrectly
     } else if (userAnswer === 'correct' || userAnswer === 'wrong') {
-      return optionIndex === parseInt(jawabanBenar) ? 'green' : 'red'; // User's correct answer is in green, and correct answer is in red
+      return optionIndex === parseInt(jawabanBenar) ? 'teal' : 'red'; // User's correct answer is in teal, and correct answer is in red
     } else {
       return '#0F766E'; // Default color
     }
@@ -171,7 +190,7 @@ const Soal1 = () => {
           {!hasil ? (
             <View>
               <Text
-              marginTop={20}
+                marginTop={20}
                 alignSelf={"center"}
                 fontSize={18}
                 fontWeight={'bold'}
@@ -216,6 +235,17 @@ const Soal1 = () => {
                     >Next Question</Text>
                   </View>
                 </TouchableOpacity>
+              )}
+  
+              {/* Display the timer only if the user hasn't answered */}
+              {!userAnswer && (
+                <Text
+                  alignSelf={"center"}
+                  fontSize={18}
+                  marginTop={20}
+                >
+                  {`Waktu Tersisa: ${sisaWaktu} Detik`}
+                </Text>
               )}
             </View>
           ) : (

@@ -230,6 +230,7 @@ const quiz = () => {
                   fontWeight={"bold"}
                 >Ikhfa Syafawi </Text>
               </Box>
+              </TouchableOpacity>
               <TouchableOpacity onPress={navigateToSoal8}>
               <Box
                 paddingTop={25}
@@ -252,7 +253,6 @@ const quiz = () => {
                   fontWeight={"bold"}
                 >Idzhar Syafawi </Text>
               </Box>
-            </TouchableOpacity>
             </TouchableOpacity>
           </View>
         </>

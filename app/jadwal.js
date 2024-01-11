@@ -4,6 +4,7 @@ import { Link, Stack } from "expo-router";
 import { View, Image, Pressable, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "../components";
+import LottieView from 'lottie-react-native';
 
 const Jadwal = () => {
   const [datas, setDatas] = useState([]);
@@ -12,6 +13,7 @@ const Jadwal = () => {
   const [currentMonth, setCurrentMonth] = useState(null);
   const [dataJadwal, setDataJadwal] = useState(null);
   const [acuanHari, setAcuanHari] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -22,12 +24,18 @@ const Jadwal = () => {
   }, []);
 
   const fetchData = () => {
+    setLoading(true); // Set loading to true when starting the fetch
+
     fetch("https://raw.githubusercontent.com/lakuapik/jadwalsholatorg/master/adzan/surabaya/2023/12.json")
       .then((response) => response.json())
       .then((data) => {
         setDatas(data);
+        setLoading(false); // Set loading to false when data is fetched
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setLoading(false); // Set loading to false on error
+      });
   };
   
 
@@ -82,10 +90,15 @@ useEffect(() => {
     // console.log(`berikut adalah year ${filteringDate}`)
     if (!filteringDate) {
       return (
-        <Center>
-          <View>
-            <Text>Loading...</Text>
-          </View>
+        <Center flex={1} alignItems="center" justifyContent="center">
+          <Box width="70%" aspectRatio={1} overflow="hidden" borderRadius={16}>
+            <LottieView 
+              source={require('../animation.json')}
+              autoPlay
+              loop
+              resizeMode="cover"
+            />
+          </Box>
         </Center>
       );
     }
@@ -107,10 +120,15 @@ useEffect(() => {
 
   if (!dataJadwal) {
     return (
-      <Center>
-        <View>
-          <Text>Loading...</Text>
-        </View>
+      <Center flex={1} alignItems="center" justifyContent="center">
+        <Box width="70%" aspectRatio={1} overflow="hidden" borderRadius={16}>
+          <LottieView 
+            source={require('../animation.json')}
+            autoPlay
+            loop
+            resizeMode="cover"
+          />
+        </Box>
       </Center>
     );
   }
@@ -121,7 +139,7 @@ useEffect(() => {
         <View w="100%">
           <Link
             href={{
-              pathname: "surah",
+              pathname: "jadwal",
             }}
           >
             <Box rounded="$xl" alignItems="center" w="$50" bg="">
@@ -192,14 +210,14 @@ useEffect(() => {
       <Center>
         <Headers />
         <View />
-        <Heading color="$green800" py="$4" >
+        <Heading color="$teal800" py="$4" >
           KOTA SURABAYA
         </Heading>
-        <Text color="$green700" bottom="$2" px="$10" textAlign="center" sizes="6xl" bold>
+        <Text color="$teal700" bottom="$2" px="$10" textAlign="center" sizes="6xl" bold>
         اُتْلُ مَآ اُوْحِيَ اِلَيْكَ مِنَ الْكِتٰبِ وَاَقِمِ الصَّلٰوةَۗ اِنَّ الصَّلٰوةَ تَنْهٰى عَنِ الْفَحْشَاۤءِ وَالْمُنْكَرِ ۗوَلَذِكْرُ اللّٰهِ اَكْبَرُ ۗوَاللّٰهُ يَعْلَمُ مَا تَصْنَعُوْنَ (العنكبوت : 45)
         
         </Text>
-        <Text mt={10} color="$green700" bottom="$2" px="$10" textAlign="justify" fontSize={15}>
+        <Text mt={10} color="$teal700" bottom="$2" px="$10" textAlign="justify" fontSize={15}>
         Artinya:"Bacalah Kitab (Al-Qur'an) yang telah diwahyukan kepadamu (Muhammad) dan laksanakanlah salat.
         Sesungguhnya salat itu mencegah dari (perbuatan) keji dan mungkar. Dan (ketahuilah) mengingat Allah (salat)
          itu lebih besar (keutamaannya dari ibadah yang lain). Allah mengetahui apa yang kamu kerjakan." (Al-Ankabut - 45 )"
